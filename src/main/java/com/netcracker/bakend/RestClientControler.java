@@ -27,6 +27,9 @@ public class RestClientControler {
     @GetMapping("/client/reviews")
     Map<Client,Reviews> getMap()
     {
+
+
+
         ClientsDAO clientsDAO = new ClientsDAOImpl();
         Map<Client, Reviews> map;
         try {
