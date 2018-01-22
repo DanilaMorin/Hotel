@@ -15,9 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * Created by 12345 on 17.01.2018.
- */
+
 @RestController()
 public class RestClientControler {
 
