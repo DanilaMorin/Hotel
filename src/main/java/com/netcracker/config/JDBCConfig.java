@@ -1,4 +1,4 @@
-package com.netcracker.DAO.implementation;
+package com.netcracker.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -42,7 +42,7 @@ public class JDBCConfig {
 //    }
 
 
-    static Connection  getConnection() {
+    public static Connection  getConnection() {
         Connection connection = null;
         String url = "jdbc:postgresql://127.0.0.1:5432/postgres";
         String nameb = "postgres";
@@ -54,16 +54,14 @@ public class JDBCConfig {
             System.out.println("connect");
             connection = DriverManager.getConnection(url, nameb, password1);
             System.out.println("Соединение установлено");
-        } catch (Exception ex)
+        }
 
-        {
-            System.out.println("error");
-        } finally
-
-        {
-
-            }
-
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         return connection;
     }
 }

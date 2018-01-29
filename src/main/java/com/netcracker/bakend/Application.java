@@ -5,6 +5,8 @@ package com.netcracker.bakend;
  */
 import java.util.Arrays;
 
+import com.netcracker.DAO.datamodel.ReservService;
+import com.netcracker.DAO.implementation.ReservServiceImpl;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,6 +19,8 @@ import org.springframework.context.annotation.ComponentScan;
 public class Application {
 
     public static void main(String[] args) {
+//        AbstractApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
+//        ReservService contactService = (ReservService) context.getBean("reservService");
         SpringApplication.run(Application.class, args);
     }
 
@@ -33,6 +37,13 @@ public class Application {
             }
 
         };
+
+    }
+    @Bean
+    public ReservService getReservService(ReservService reservService){
+        ReservService service = new ReservServiceImpl();
+        return service;
+
     }
 
 

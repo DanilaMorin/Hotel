@@ -1,17 +1,32 @@
 package com.netcracker.DAO.entity;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Created by user on 15.01.2018.
  */
+@Entity
+@Table(name = "clients")
 public class Client {
+    @Id
     private String login;
+    @Column(name = "password", nullable = false )
     private String password;
+    @Column(name ="surname", nullable = false)
     private String surname;
+    @Column (name = "name", nullable = false)
     private String name;
+    @Column(name = "middle_name")
     private String middle_name;
+    @Column(name = "sex")
     private String sex;
+    @Column(name = "email")
     private String email;
 
     public Client() {

@@ -23,13 +23,9 @@ public class RestRoomControler {
 
         RoomDAOImpl roomDAO = new RoomDAOImpl();
         int count = 0;
-        try {
+
             count = roomDAO.getRoomFree();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+
         return count;
     }
 
@@ -38,14 +34,9 @@ public class RestRoomControler {
     List<Room> getListRoom(String date){
         RoomDAOImpl roomDAO = new RoomDAOImpl();
         List<Room> list = null;
-        try {
+
             list = roomDAO.getListRoom(date);
 
-        } catch (ParseException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
         System.out.println(list);
         return list;
     }

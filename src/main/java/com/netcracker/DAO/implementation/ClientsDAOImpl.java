@@ -5,7 +5,7 @@ import com.netcracker.DAO.datamodel.ClientsDAO;
 
 import com.netcracker.DAO.entity.Client;
 import com.netcracker.DAO.entity.Reviews;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.netcracker.config.JDBCConfig;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
@@ -29,11 +29,13 @@ public class ClientsDAOImpl implements ClientsDAO {
     }
 
     @Override
-    public Map<Client, Reviews> getClientReviews() throws SQLException {
+    public Map<Client, Reviews> getClientReviews()  {
         Map<Client, Reviews> map = new HashMap<>();
 
         Connection connection = JDBCConfig.getConnection();
-        connection.createStatement();
+        try {
+            connection.createStatement();
+
         PreparedStatement preparedStatement = null;
         preparedStatement = connection.prepareStatement("SELECT login, password, surname, name, middle_name, sex, email, rev.id, id_reverv, text, rating\n" +
                 "  FROM public.reviews as rev,  public.clients, public.reserv as res " +
@@ -61,21 +63,35 @@ public class ClientsDAOImpl implements ClientsDAO {
 
         }
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+
+
+
             if (connection != null) {
-             connection.close();
-             System.out.println("Cоединение закрыто");
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("Cоединение закрыто");
            }
+        }
         return map;
     }
 
     @Override
-    public boolean addClient(Client client) throws SQLException {
+    public boolean addClient(Client client)  {
         boolean b = false;
 
 
         Connection connection = JDBCConfig.getConnection();
+        try {
             connection.createStatement();
-            PreparedStatement preparedStatement = null;
+
+        PreparedStatement preparedStatement = null;
             preparedStatement = connection.prepareStatement(
                     "INSERT INTO public.clients(\n" +
                             "            login, password, surname, name, middle_name, sex, email)\n" +
@@ -88,15 +104,29 @@ public class ClientsDAOImpl implements ClientsDAO {
             preparedStatement.setString(6,  client.getSex());
             preparedStatement.setString(7, client.getEmail());
             b = preparedStatement.execute();
-
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("Cоединение закрыто");
+            }
+        }
         return b;
     }
 
     @Override
-    public List<Client> getClient() throws SQLException {
+    public List<Client> getClient()  {
         List<Client> list = new ArrayList<Client>();
         Connection connection =JDBCConfig.getConnection();
-        connection.createStatement();
+        try {
+            connection.createStatement();
+
         PreparedStatement preparedStatement = null;
         preparedStatement = connection.prepareStatement("SELECT login, password, surname, name, middle_name, sex, email\n" +
                 "  FROM public.clients;");
@@ -119,11 +149,22 @@ public class ClientsDAOImpl implements ClientsDAO {
             list.add(new Client(login,password,surname,name,middle_name,sex,email));
         }
 
-        if (connection != null) {
-            connection.close();
-            System.out.println("Cоединение закрыто");
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
+        finally {
+
+
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("Cоединение закрыто");
+            }
+        }
         return list;
     }
 
@@ -133,11 +174,13 @@ public class ClientsDAOImpl implements ClientsDAO {
     }
 
     @Override
-    public Double billForServices(String login) throws SQLException {
+    public Double billForServices(String login)  {
         Double price = 0.0;
 
         Connection connection = JDBCConfig.getConnection();
-        connection.createStatement();
+        try {
+            connection.createStatement();
+
         PreparedStatement preparedStatement = null;
         preparedStatement = connection.prepareStatement("SELECT SUM(price) as price\n" +
                 "  FROM  public.clients, public.reserv as res, public.additional_services as add_serv,  public.value_service as val_serv\n" +
@@ -152,20 +195,34 @@ public class ClientsDAOImpl implements ClientsDAO {
 
         }
 
-        if (connection != null) {
-            connection.close();
-            System.out.println("Cоединение закрыто");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        finally {
+
+
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("Cоединение закрыто");
+            }
         }
 
         return price;
     }
 
     @Override
-    public List<Reviews> getRevByid(String login) throws SQLException {
+    public List<Reviews> getRevByid(String login)  {
         List<Reviews> list = new ArrayList<>();
 
         Connection connection = JDBCConfig.getConnection();
-        connection.createStatement();
+        try {
+            connection.createStatement();
+
         PreparedStatement preparedStatement = null;
         preparedStatement = connection.prepareStatement("SELECT  rev.id, id_reverv, text, rating\n" +
                 "  FROM public.reviews as rev,  public.reserv as res " +
@@ -182,19 +239,32 @@ public class ClientsDAOImpl implements ClientsDAO {
             Reviews reviews = new Reviews(id, id_reserv, text, rating);
             list.add(reviews);
         }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        finally {
+
 
         if (connection != null) {
-            connection.close();
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             System.out.println("Cоединение закрыто");
+        }
         }
         return list;
     }
 
     @Override
-    public Map<String, Double> typesOfServices(String login) throws SQLException {
+    public Map<String, Double> typesOfServices(String login)  {
         Map<String,Double> map = new HashMap<>();
         Connection connection = JDBCConfig.getConnection();
-        connection.createStatement();
+        try {
+            connection.createStatement();
+
         PreparedStatement preparedStatement = null;
         preparedStatement = connection.prepareStatement("SELECT service.name , price\n" +
                 "  FROM public.service, public.clients, public.reserv as res, public.additional_services as add_serv,  public.value_service as val_serv\n" +
@@ -210,10 +280,21 @@ public class ClientsDAOImpl implements ClientsDAO {
 
         }
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-        if (connection != null) {
-            connection.close();
-            System.out.println("Cоединение закрыто");
+        finally {
+
+
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("Cоединение закрыто");
+            }
         }
         return map;
     }

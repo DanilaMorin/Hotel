@@ -2,6 +2,8 @@ package com.netcracker.DAO.implementation;
 
 import com.netcracker.DAO.datamodel.RoomDAO;
 import com.netcracker.DAO.entity.Room;
+import com.netcracker.config.JDBCConfig;
+
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,10 +21,14 @@ import java.util.List;
 public class RoomDAOImpl implements RoomDAO {
 
     @Override
-    public int getRoomFree() throws SQLException, ParseException {
+    public int getRoomFree()  {
 
-        Connection connection =JDBCConfig.getConnection();
-        connection.createStatement();
+
+        int cout = 0;
+        Connection connection = JDBCConfig.getConnection();
+        try {
+            connection.createStatement();
+
         PreparedStatement preparedStatement = null;
         preparedStatement = connection.prepareStatement("SELECT count(rooms.id_room)\n" +
                 "  FROM public.rooms LEFT join public.reserv as res on rooms.id_room = res.id_room and rooms.id_corps = res.id_corp \n" +
@@ -37,29 +43,44 @@ public class RoomDAOImpl implements RoomDAO {
         preparedStatement.setDate(1, date1);
         preparedStatement.setDate(2, date1);
         ResultSet result2 = preparedStatement.executeQuery();
-        int cout = 0;
+
         System.out.println("Выводим PreparedStatement");
         while (result2.next()) {
             cout = result2.getInt(1);
 
         }
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } finally {
+
+
+
         if (connection != null) {
-            connection.close();
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             System.out.println("Cоединение закрыто");
+        }
         }
         return cout;
     }
 
     @Override
-    public List<Room> getListRoom(String  date) throws SQLException, ParseException {
+    public List<Room> getListRoom(String  date)  {
         List<Room> list = new ArrayList<>();
         int id_room = 0;
         int id_corps = 0;
         int number_of_people = 0;
         int floor = 0;
         Connection connection =JDBCConfig.getConnection();
-        connection.createStatement();
+        try {
+            connection.createStatement();
+
         PreparedStatement preparedStatement = null;
         preparedStatement = connection.prepareStatement("SELECT rooms.id_room, id_corps, number_of_people, floor\n" +
                 "  FROM public.rooms LEFT join public.reserv as res on rooms.id_room = res.id_room and rooms.id_corps = res.id_corp \n" +
@@ -83,11 +104,25 @@ public class RoomDAOImpl implements RoomDAO {
             list.add(room);
         }
 
-        if (connection != null) {
-            connection.close();
-            System.out.println("Cоединение закрыто");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
 
+        finally {
+
+
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("Cоединение закрыто");
+            }
+
+        }
         return list;
     }
 }
