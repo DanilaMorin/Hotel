@@ -1,8 +1,8 @@
-package com.netcracker.DAO.implementation;
+package com.netcracker.servicesImpl;
 
 import com.netcracker.DAO.datamodel.ReservDAO;
-import com.netcracker.DAO.datamodel.ReservService;
 import com.netcracker.DAO.entity.Reserv;
+import com.netcracker.services.ReservService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Service("reservService")
 @Transactional
-public class ReservServiceImpl implements ReservService{
+public class ReservServiceImpl implements ReservService {
 
 
     @Autowired

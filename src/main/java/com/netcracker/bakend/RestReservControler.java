@@ -1,7 +1,6 @@
 package com.netcracker.bakend;
 
-import com.netcracker.DAO.datamodel.ReservDAO;
-import com.netcracker.DAO.datamodel.ReservService;
+import com.netcracker.services.ReservService;
 import com.netcracker.DAO.entity.Reserv;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

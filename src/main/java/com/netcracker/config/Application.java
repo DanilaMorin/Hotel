@@ -1,12 +1,12 @@
-package com.netcracker.bakend;
+package com.netcracker.config;
 
 /**
  * Created by 12345 on 17.01.2018.
  */
 import java.util.Arrays;
 
-import com.netcracker.DAO.datamodel.ReservService;
-import com.netcracker.DAO.implementation.ReservServiceImpl;
+import com.netcracker.services.*;
+import com.netcracker.servicesImpl.ReservServiceImpl;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = "com.netcracker")
+@ComponentScan(basePackages = "com")
 public class Application {
 
     public static void main(String[] args) {
@@ -45,6 +45,22 @@ public class Application {
         return service;
 
     }
+//
+
+//    @Bean
+//
+//    public AdditServicesServie getAdditServicesServie(AdditServicesServie addServService){
+//        AdditServicesServie servicesServie = new AdditServicesServieImpl();
+//        return servicesServie;
+//
+//    }
+//
+//    @Bean
+//    public CorpsService getCorpService(CorpsService corpsService){
+//        CorpsService service = new CorpsServiceImpl();
+//        return service;
+//
+//    }
 
 
 

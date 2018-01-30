@@ -1,4 +1,4 @@
-package com.netcracker.DAO.datamodel;
+package com.netcracker.services;
 
 import com.netcracker.DAO.entity.Reserv;
 
