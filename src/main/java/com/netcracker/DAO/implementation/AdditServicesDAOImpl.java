@@ -20,20 +20,7 @@ public class AdditServicesDAOImpl extends AbstractDAO implements AdditServicesDA
     public AdditServicesDAOImpl() {
     }
 
-    @Override
-    protected Session getSession() {
-        return super.getSession();
-    }
 
-    @Override
-    public void persist(Object entity) {
-        super.persist(entity);
-    }
-
-    @Override
-    public void delete(Object entity) {
-        super.delete(entity);
-    }
 
     @Override
     public void saveAdditServices(AdditionalServices corps) {
