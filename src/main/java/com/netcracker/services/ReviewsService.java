@@ -1,8 +1,6 @@
 package com.netcracker.services;
 
 import com.netcracker.DAO.entity.Reviews;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,6 +16,6 @@ public interface ReviewsService {
 
     Reviews findReviewsById(int id);
 
-    void deleteReviewsById(int id);
+    int deleteReviewsById(int id);
 
 }

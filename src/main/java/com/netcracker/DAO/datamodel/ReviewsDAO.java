@@ -1,6 +1,5 @@
 package com.netcracker.DAO.datamodel;
 
-import com.netcracker.DAO.entity.Corps;
 import com.netcracker.DAO.entity.Reviews;
 
 import java.util.List;
@@ -16,5 +15,5 @@ public interface ReviewsDAO {
 
     Reviews findReviewsById(int id);
 
-    void deleteReviewsById(int id);
+    int deleteReviewsById(int id);
 }

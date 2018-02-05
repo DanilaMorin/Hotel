@@ -1,6 +1,5 @@
 package com.netcracker.DAO.datamodel;
 
-import com.netcracker.DAO.entity.Reviews;
 import com.netcracker.DAO.entity.Service;
 
 import java.util.List;

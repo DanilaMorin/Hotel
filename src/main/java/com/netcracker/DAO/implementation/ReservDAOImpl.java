@@ -42,12 +42,12 @@ public class ReservDAOImpl extends AbstractDAO implements ReservDAO {
     }
 
     @Override
-    public void deleteReservById(int id) {
-        Query query = getSession().createQuery("DELETE FROM Reserv\n" +
-                " WHERE id = :id ");
+    public int  deleteReservById(int id) {
+        Query query = getSession().createQuery("DELETE  Reserv as res\n" +
+                " WHERE res.id = :id ");
         query.setInteger("id", id);
-        query.executeUpdate();
-
+        int n = query.executeUpdate();
+        return n;
 
     }
 }

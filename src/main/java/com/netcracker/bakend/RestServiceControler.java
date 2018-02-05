@@ -1,6 +1,5 @@
 package com.netcracker.bakend;
 
-import com.netcracker.DAO.entity.Reserv;
 import com.netcracker.DAO.entity.Service;
 import com.netcracker.services.ServiceService;
 import org.springframework.beans.factory.annotation.Autowired;

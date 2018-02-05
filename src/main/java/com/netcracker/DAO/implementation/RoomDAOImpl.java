@@ -1,14 +1,14 @@
 package com.netcracker.DAO.implementation;
 
+import com.netcracker.DAO.datamodel.AbstractDAO;
 import com.netcracker.DAO.datamodel.RoomDAO;
 import com.netcracker.DAO.entity.Room;
-import com.netcracker.config.JDBCConfig;
+import org.hibernate.Criteria;
+import org.hibernate.Query;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,111 +18,71 @@ import java.util.List;
 /**
  * Created by 12345 on 18.01.2018.
  */
-public class RoomDAOImpl implements RoomDAO {
+@Repository
+public class RoomDAOImpl extends AbstractDAO implements RoomDAO {
+
+    public RoomDAOImpl() {
+    }
 
     @Override
-    public int getRoomFree()  {
-
-
-        int cout = 0;
-        Connection connection = JDBCConfig.getConnection();
-        try {
-            connection.createStatement();
-
-        PreparedStatement preparedStatement = null;
-        preparedStatement = connection.prepareStatement("SELECT count(rooms.id_room)\n" +
-                "  FROM public.rooms LEFT join public.reserv as res on rooms.id_room = res.id_room and rooms.id_corps = res.id_corp \n" +
-                "  where  NOT (res.arrival_date < ? and ? < res.date_of_departure) or (res.id is null);\n" +
-                "  ;");
+    public Integer getRoomFree() throws ParseException {
+        Integer cout = 0;
         SimpleDateFormat format = new SimpleDateFormat();
         format.applyPattern("yyyy-MM-dd");
         Date date = new Date();
         java.sql.Date date1= new java.sql.Date( format.parse(format.format(date)).getTime());
-
-        //java.sql.Date date1 = new java.sql.Date(date.getDate());
-        preparedStatement.setDate(1, date1);
-        preparedStatement.setDate(2, date1);
-        ResultSet result2 = preparedStatement.executeQuery();
-
-        System.out.println("Выводим PreparedStatement");
-        while (result2.next()) {
-            cout = result2.getInt(1);
-
-        }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        } finally {
-
-
-
-        if (connection != null) {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            System.out.println("Cоединение закрыто");
-        }
-        }
+        Query query = getSession().createQuery("SELECT count (room.id_corps) from Room as room left join room.reserv  as res where NOT (res.arrival_date < :date and :date1 < res.date_of_departure) or (res.id is null)");
+        query.setParameter("date",date1);
+        query.setParameter("date1",date1);
+        List list = query.list();
+        cout = Integer.parseInt((String) list.get(0).toString());
         return cout;
+
+
+    }
+
+        @Override
+        public List<Room> getListRoom (String date) throws ParseException {
+            List<Room> list = new ArrayList<>();
+
+                Query query = getSession().createQuery("SELECT room from Room as room left join room.reserv  as res where  NOT (res.arrival_date < :date and :date1 < res.date_of_departure) or (res.id is null)");
+                SimpleDateFormat format = new SimpleDateFormat();
+                format.applyPattern("yyyy-MM-dd");
+                java.sql.Date date1 = new java.sql.Date(format.parse(date).getTime());
+                query.setParameter("date",date1);
+                query.setParameter("date1", date1);
+                list = (List<Room> ) query.list();
+            return list;
+        }
+
+    @Override
+    public void saveRoom(Room room) {
+        persist(room);
     }
 
     @Override
-    public List<Room> getListRoom(String  date)  {
-        List<Room> list = new ArrayList<>();
-        int id_room = 0;
-        int id_corps = 0;
-        int number_of_people = 0;
-        int floor = 0;
-        Connection connection =JDBCConfig.getConnection();
-        try {
-            connection.createStatement();
-
-        PreparedStatement preparedStatement = null;
-        preparedStatement = connection.prepareStatement("SELECT rooms.id_room, id_corps, number_of_people, floor\n" +
-                "  FROM public.rooms LEFT join public.reserv as res on rooms.id_room = res.id_room and rooms.id_corps = res.id_corp \n" +
-                "  where  NOT (res.arrival_date < ? and ? < res.date_of_departure) or (res.id is null);\n" +
-                "  ;");
-
-        SimpleDateFormat format = new SimpleDateFormat();
-        format.applyPattern("yyyy-MM-dd");
-        java.sql.Date date1= new java.sql.Date( format.parse(date).getTime());
-        preparedStatement.setDate(1, date1);
-        preparedStatement.setDate(2, date1);
-        ResultSet result2 = preparedStatement.executeQuery();
-        System.out.println("Выводим PreparedStatement");
-        while (result2.next()) {
-            id_room = result2.getInt("id_room");
-            id_corps = result2.getInt("id_corps");
-            number_of_people = result2.getInt("number_of_people");
-            floor = result2.getInt("floor");
-
-            Room room = new Room(id_room,id_corps,number_of_people,floor);
-            list.add(room);
-        }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        finally {
-
-
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-                System.out.println("Cоединение закрыто");
-            }
-
-        }
+    public List<Room> findAllRoom() {
+        Criteria criteria = getSession().createCriteria(Room.class);
+        List<Room> list =(List<Room>) criteria.list();
         return list;
     }
+
+    @Override
+    public Room findRoomById(int id_room, int id_corps) {
+        Criteria criteria = getSession().createCriteria(Room.class);
+        criteria.add(Restrictions.eq("id_room", id_room));
+        criteria.add(Restrictions.eq("id_corps", id_corps));
+        return (Room) criteria.uniqueResult();
+    }
+
+    @Override
+    public int deleteRoomById(int id_room, int id_corp) {
+        Query query = getSession().createQuery("DELETE  Room as room\n" +
+                " WHERE room.id_room = :id_room and room.id_corps = :id_corps ");
+        query.setInteger("id_room", id_room);
+        query.setInteger("id_corps", id_corp);
+        int n =   query.executeUpdate();
+        return n;
+    }
 }
+

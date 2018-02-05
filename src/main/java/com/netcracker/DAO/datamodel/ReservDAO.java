@@ -14,6 +14,6 @@ public interface ReservDAO {
 
     Reserv findReservById(int id);
 
-    void deleteReservById(int id);
+    int deleteReservById(int id);
 
 }

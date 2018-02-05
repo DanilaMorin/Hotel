@@ -1,7 +1,6 @@
 package com.netcracker.DAO.entity;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,6 +29,15 @@ public class Client {
     private String email;
 
     public Client() {
+    }
+    public Client(Client client){
+        this.login = client.login;
+        this.password = client.password;
+        this.surname = client.surname;
+        this.name = client.name;
+        this.middle_name = client.middle_name;
+        this.sex = client.sex;
+        this.email = client.email;
     }
 
     public Client(String login, String password, String surname, String name, String middle_name, String sex, String email) {

@@ -15,5 +15,5 @@ public interface CorpsDAO {
 
     Corps findCorpsById(int id);
 
-    void deleteCorpsById(int id);
+    int deleteCorpsById(int id);
 }

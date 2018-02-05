@@ -1,6 +1,5 @@
 package com.netcracker.DAO.datamodel;
 
-import com.netcracker.DAO.entity.AdditionalServices;
 import com.netcracker.DAO.entity.Organization;
 
 import java.util.List;
@@ -15,5 +14,5 @@ public interface OrganizationDAO {
 
     Organization findOrgById(String id);
 
-    void deleteOrgById(String id);
+    int deleteOrgById(String id);
 }

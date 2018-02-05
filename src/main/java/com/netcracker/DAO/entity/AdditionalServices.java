@@ -1,9 +1,6 @@
 package com.netcracker.DAO.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by 12345 on 30.01.2018.
@@ -14,8 +11,14 @@ import javax.persistence.Table;
 public class AdditionalServices {
 
     @Id
+    @AttributeOverrides(value = {
+            @AttributeOverride(name = "id_reserv", column = @Column(name = "id_reserv")),
+            @AttributeOverride(name = "id_service", column = @Column(name = "id_service"))
+
+    })
+
+
     private int id_reserv;
-    @Column(name = "id_service")
     private int id_service;
 
     public AdditionalServices() {

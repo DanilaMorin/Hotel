@@ -2,7 +2,6 @@ package com.netcracker.DAO.implementation;
 
 import com.netcracker.DAO.datamodel.AbstractDAO;
 import com.netcracker.DAO.datamodel.ValueServiceDAO;
-import com.netcracker.DAO.entity.ValueRoom;
 import com.netcracker.DAO.entity.ValueService;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;

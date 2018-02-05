@@ -11,7 +11,7 @@ public interface ReservService {
     void saveReserv(Reserv reserv);
     List<Reserv> findAllReserv();
     Reserv findReservById(int id);
-    void deleteReservById(int id);
+    int deleteReservById(int id);
 
 }
 

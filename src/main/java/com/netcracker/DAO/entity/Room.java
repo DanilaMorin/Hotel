@@ -1,27 +1,49 @@
 package com.netcracker.DAO.entity;
 
+import javax.persistence.*;
+
 /**
  * Created by 12345 on 17.01.2018.
  */
+@Entity
+@Table(name = "rooms")
 public class Room {
-    private int id_room ;
-    private int id_corps ;
-    int number_of_people;
-    int floor ;
+    @Id
+    @GeneratedValue
+    @AttributeOverrides(value = {
+            @AttributeOverride(name = "id_room", column = @Column(name = "id_room")),
+            @AttributeOverride(name = "id_corps", column = @Column(name = "id_corps"))
 
-    public Room(int id_room, int id_corps, int number_of_people, int floor) {
-        this.id_room = id_room;
+    })
+
+    private int id_rooms ;
+    @Column(name = "id_corps")
+    private int id_corps ;
+    @Column(name = "number_of_people")
+    private int number_of_people;
+    @Column(name = "floor")
+    private int floor ;
+
+    @ManyToOne (optional=false, cascade=CascadeType.ALL)
+    @JoinColumn (name="id_room")
+    private Reserv reserv;
+
+    public Room(int id_corps, int number_of_people, int floor, Reserv reserv) {
         this.id_corps = id_corps;
         this.number_of_people = number_of_people;
         this.floor = floor;
+        this.reserv = reserv;
+    }
+
+    public Room() {
     }
 
     public int getId_room() {
-        return id_room;
+        return id_rooms;
     }
 
     public void setId_room(int id_room) {
-        this.id_room = id_room;
+        this.id_rooms = id_room;
     }
 
     public int getId_corps() {
@@ -48,10 +70,18 @@ public class Room {
         this.floor = floor;
     }
 
+    public Reserv getReserv() {
+        return reserv;
+    }
+
+    public void setReserv(Reserv reserv) {
+        this.reserv = reserv;
+    }
+
     @Override
     public String toString() {
         return "Room{" +
-                "id_room=" + id_room +
+                "id_room=" + id_rooms +
                 ", id_corps=" + id_corps +
                 ", number_of_people=" + number_of_people +
                 ", floor=" + floor +

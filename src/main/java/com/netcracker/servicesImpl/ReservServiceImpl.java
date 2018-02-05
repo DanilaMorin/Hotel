@@ -32,8 +32,8 @@ public class ReservServiceImpl implements ReservService {
         return reservDAO.findReservById(id);
     }
 
-    public void deleteReservById(int id) {
-        reservDAO.deleteReservById(id);
+    public int  deleteReservById(int id) {
+        return reservDAO.deleteReservById(id);
     }
 
 

@@ -1,8 +1,6 @@
 package com.netcracker.services;
 
 import com.netcracker.DAO.entity.Organization;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,5 +15,5 @@ public interface OrganizationService {
 
     Organization findOrgById(String id);
 
-    void deleteOrgById(String id);
+    int deleteOrgById(String id);
 }

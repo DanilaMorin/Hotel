@@ -5,7 +5,6 @@ import com.netcracker.services.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.ws.rs.Path;
 import java.util.List;
 
 /**
@@ -36,8 +35,11 @@ public class RestOrgControler {
     }
 
     @DeleteMapping("/del")
-    void deleteById(String id){
-        service.deleteOrgById(id);
+    boolean deleteById(String id){
+        boolean b = false;
+        int n = service.deleteOrgById(id);
+        if(n > 0) b = true;
+        return b;
     }
 
 }

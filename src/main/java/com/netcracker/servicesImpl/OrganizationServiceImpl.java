@@ -40,7 +40,8 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     @Override
-    public void deleteOrgById(String id) {
+    public int deleteOrgById(String id) {
+        return dao.deleteOrgById(id);
 
     }
 }

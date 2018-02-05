@@ -3,9 +3,8 @@ package com.netcracker.DAO.implementation;
 import com.netcracker.DAO.datamodel.AbstractDAO;
 import com.netcracker.DAO.datamodel.AdditServicesDAO;
 import com.netcracker.DAO.entity.AdditionalServices;
-import com.netcracker.DAO.entity.Corps;
 import org.hibernate.Criteria;
-import org.hibernate.Session;
+import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -35,13 +34,18 @@ public class AdditServicesDAOImpl extends AbstractDAO implements AdditServicesDA
 
     @Override
     public AdditionalServices findAdditServicesById(int id) {
-        Criteria criteria = getSession().createCriteria(Corps.class);
+        Criteria criteria = getSession().createCriteria(AdditionalServices.class);
         criteria.add(Restrictions.eq("id", id));
         return (AdditionalServices) criteria.uniqueResult();
     }
 
     @Override
-    public void deleteAdditServicesById(int id) {
-
+    public int   deleteAdditServicesById(int id_reserv, int id_service) {
+        Query query =  getSession().createQuery("delete AdditionalServices where id_reserv = :id_reserv and id_service = :id_service");
+        query.setParameter("id_reserv", id_reserv);
+        query.setParameter("id_service", id_service);
+        int result = query.executeUpdate();
+        //System.out.println(result);
+        return result;
     }
 }

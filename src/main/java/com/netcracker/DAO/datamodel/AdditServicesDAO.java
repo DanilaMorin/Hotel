@@ -1,7 +1,6 @@
 package com.netcracker.DAO.datamodel;
 
 import com.netcracker.DAO.entity.AdditionalServices;
-import com.netcracker.DAO.entity.Corps;
 
 import java.util.List;
 
@@ -15,6 +14,6 @@ public interface AdditServicesDAO {
 
     AdditionalServices findAdditServicesById(int id);
 
-    void deleteAdditServicesById(int id);
+    int deleteAdditServicesById(int id_reserv, int id_service);
 
 }

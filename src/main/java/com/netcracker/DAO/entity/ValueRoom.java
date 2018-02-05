@@ -1,9 +1,6 @@
 package com.netcracker.DAO.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by 12345 on 30.01.2018.
@@ -13,11 +10,13 @@ import javax.persistence.Table;
 public class ValueRoom {
 
     @Id
-    @Column(name = "stars")
+    @AttributeOverrides(value = {
+            @AttributeOverride(name = "stars", column = @Column(name = "stars")),
+            @AttributeOverride(name = "number_of_people", column = @Column(name = "number_of_people"))
+
+    })
+
     private int stars;
-
-
-    @Column(name = "number_of_people")
     private int number_of_people;
 
     @Column(name = "price")

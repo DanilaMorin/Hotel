@@ -1,6 +1,5 @@
 package com.netcracker.DAO.datamodel;
 
-import com.netcracker.DAO.entity.ValueRoom;
 import com.netcracker.DAO.entity.ValueService;
 
 import java.util.List;

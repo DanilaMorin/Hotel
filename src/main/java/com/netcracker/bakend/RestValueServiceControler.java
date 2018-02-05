@@ -1,6 +1,5 @@
 package com.netcracker.bakend;
 
-import com.netcracker.DAO.entity.ValueRoom;
 import com.netcracker.DAO.entity.ValueService;
 import com.netcracker.services.ValueServiceService;
 import org.springframework.beans.factory.annotation.Autowired;

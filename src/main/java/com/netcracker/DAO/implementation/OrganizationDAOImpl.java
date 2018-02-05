@@ -2,10 +2,9 @@ package com.netcracker.DAO.implementation;
 
 import com.netcracker.DAO.datamodel.AbstractDAO;
 import com.netcracker.DAO.datamodel.OrganizationDAO;
-import com.netcracker.DAO.entity.AdditionalServices;
-import com.netcracker.DAO.entity.Corps;
 import com.netcracker.DAO.entity.Organization;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -43,7 +42,10 @@ public class OrganizationDAOImpl extends AbstractDAO implements OrganizationDAO 
     }
 
     @Override
-    public void deleteOrgById(String id) {
-
+    public int deleteOrgById(String id) {
+        Query query =  getSession().createQuery("delete Organization where login = :id ");
+        query.setParameter("id", id);
+        int result = query.executeUpdate();
+        return result;
     }
 }

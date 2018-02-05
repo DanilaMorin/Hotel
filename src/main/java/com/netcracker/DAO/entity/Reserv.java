@@ -2,6 +2,7 @@ package com.netcracker.DAO.entity;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.Collection;
 
 /**
  * Created by 12345 on 29.01.2018.
@@ -12,7 +13,9 @@ public class Reserv  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
+
     @Column(name = "arrival_date")
     private Date arrival_date;
     @Column(name = "date_of_departure")
@@ -26,16 +29,21 @@ public class Reserv  {
     @Column (name = "id_client")
     private String id_client;
 
+    @OneToMany (mappedBy="reserv", fetch=FetchType.EAGER)
+    private Collection<Room> tenants;
+
+
     public Reserv() {
     }
 
-    public Reserv(Date arrival_date, Date date_of_departure, int id_room, int id_corp, String id_org, String id_client) {
+    public Reserv(Date arrival_date, Date date_of_departure, int id_room, int id_corp, String id_org, String id_client, Collection<Room> tenants) {
         this.arrival_date = arrival_date;
         this.date_of_departure = date_of_departure;
         this.id_room = id_room;
         this.id_corp = id_corp;
         this.id_org = id_org;
         this.id_client = id_client;
+        this.tenants = tenants;
     }
 
     public int getId() {
@@ -105,5 +113,14 @@ public class Reserv  {
                 ", id_org='" + id_org + '\'' +
                 ", id_client='" + id_client + '\'' +
                 '}';
+    }
+
+
+    public Collection<Room> getTenants() {
+        return tenants;
+    }
+
+    public void setTenants(Collection<Room> tenants) {
+        this.tenants = tenants;
     }
 }

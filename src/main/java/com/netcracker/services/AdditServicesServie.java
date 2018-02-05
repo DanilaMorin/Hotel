@@ -14,5 +14,5 @@ public interface AdditServicesServie {
 
     AdditionalServices findAdditServicesById(int id);
 
-    void deleteAdditServicesById(int id);
+    boolean deleteAdditServicesById(int id_reserv, int id_service);
 }

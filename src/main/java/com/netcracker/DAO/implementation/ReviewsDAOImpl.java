@@ -2,11 +2,10 @@ package com.netcracker.DAO.implementation;
 
 import com.netcracker.DAO.datamodel.AbstractDAO;
 import com.netcracker.DAO.datamodel.ReviewsDAO;
-import com.netcracker.DAO.entity.Reserv;
 import com.netcracker.DAO.entity.Reviews;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -43,7 +42,11 @@ public class ReviewsDAOImpl extends AbstractDAO implements ReviewsDAO {
     }
 
     @Override
-    public void deleteReviewsById(int id) {
-
+    public int deleteReviewsById(int id) {
+        Query query = getSession().createQuery("DELETE  Reviews as res\n" +
+                " WHERE res.id = :id ");
+        query.setInteger("id", id);
+        int n =   query.executeUpdate();
+        return n;
     }
 }

@@ -1,7 +1,6 @@
 package com.netcracker.servicesImpl;
 
 import com.netcracker.DAO.datamodel.AdditServicesDAO;
-import com.netcracker.DAO.datamodel.ReservDAO;
 import com.netcracker.DAO.entity.AdditionalServices;
 import com.netcracker.services.AdditServicesServie;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +44,10 @@ public class AdditServicesServieImpl implements AdditServicesServie {
     }
 
     @Override
-    public void deleteAdditServicesById(int id) {
-
+    public boolean deleteAdditServicesById(int id_reserv, int id_service) {
+            int rez = additServicesDAO.deleteAdditServicesById(id_reserv, id_service);
+        boolean b = false;
+        if (rez > 0) b = true;
+        return b;
     }
 }

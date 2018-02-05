@@ -2,8 +2,6 @@ package com.netcracker.servicesImpl;
 
 import com.netcracker.DAO.datamodel.CorpsDAO;
 import com.netcracker.DAO.entity.Corps;
-import com.netcracker.DAO.entity.Reserv;
-import com.netcracker.DAO.implementation.CorpsDAOImpl;
 import com.netcracker.services.CorpsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,7 +39,8 @@ public class CorpsServiceImpl implements CorpsService {
     }
 
     @Override
-    public void deleteCorpsById(int id) {
+    public int deleteCorpsById(int id) {
+        return corpsDAO.deleteCorpsById(id);
 
     }
 }

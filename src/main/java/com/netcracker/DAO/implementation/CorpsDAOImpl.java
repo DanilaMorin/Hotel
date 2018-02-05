@@ -3,12 +3,10 @@ package com.netcracker.DAO.implementation;
 import com.netcracker.DAO.datamodel.AbstractDAO;
 import com.netcracker.DAO.datamodel.CorpsDAO;
 import com.netcracker.DAO.entity.Corps;
-import com.netcracker.DAO.entity.Reserv;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -42,7 +40,10 @@ public class CorpsDAOImpl extends AbstractDAO implements CorpsDAO
     }
 
     @Override
-    public void deleteCorpsById(int id) {
-
+    public int deleteCorpsById(int id) {
+        Query query =  getSession().createQuery("delete Corps where id = :id ");
+        query.setParameter("id", id);
+        int result = query.executeUpdate();
+        return result;
     }
 }

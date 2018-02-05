@@ -1,7 +1,6 @@
 package com.netcracker.services;
 
 import com.netcracker.DAO.entity.Corps;
-import com.netcracker.DAO.entity.Reserv;
 
 import java.util.List;
 
@@ -12,7 +11,7 @@ public interface CorpsService {
     void saveCorps(Corps corps);
     List<Corps> findAllCorps();
     Corps findCorpsById(int id);
-    void deleteCorpsById(int id);
+    int  deleteCorpsById(int id);
 
 
 }
