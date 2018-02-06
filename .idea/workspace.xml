@@ -8,20 +8,6 @@
   <component name="ChangeListManager">
     <list default="true" id="26cd5165-bebd-45c9-9a23-629f1af6cae6" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/netcracker/DAO/datamodel/ClientsDAO.java" afterPath="$PROJECT_DIR$/src/main/java/com/netcracker/DAO/datamodel/ClientsDAO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/netcracker/DAO/datamodel/RoomDAO.java" afterPath="$PROJECT_DIR$/src/main/java/com/netcracker/DAO/datamodel/RoomDAO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/netcracker/DAO/entity/Client.java" afterPath="$PROJECT_DIR$/src/main/java/com/netcracker/DAO/entity/Client.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/netcracker/DAO/entity/DataClient.java" afterPath="$PROJECT_DIR$/src/main/java/com/netcracker/DAO/entity/DataClient.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/netcracker/DAO/entity/Reserv.java" afterPath="$PROJECT_DIR$/src/main/java/com/netcracker/DAO/entity/Reserv.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/netcracker/DAO/entity/Room.java" afterPath="$PROJECT_DIR$/src/main/java/com/netcracker/DAO/entity/Room.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/netcracker/DAO/implementation/ClientsDAOImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/netcracker/DAO/implementation/ClientsDAOImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/netcracker/DAO/implementation/RoomDAOImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/netcracker/DAO/implementation/RoomDAOImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/netcracker/bakend/RestClientControler.java" afterPath="$PROJECT_DIR$/src/main/java/com/netcracker/bakend/RestClientControler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/netcracker/bakend/RestTest.java" afterPath="$PROJECT_DIR$/src/main/java/com/netcracker/bakend/RestTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/netcracker/services/ClientService.java" afterPath="$PROJECT_DIR$/src/main/java/com/netcracker/services/ClientService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/netcracker/services/RoomService.java" afterPath="$PROJECT_DIR$/src/main/java/com/netcracker/services/RoomService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/netcracker/servicesImpl/ClientServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/netcracker/servicesImpl/ClientServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/netcracker/servicesImpl/RoomServicesImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/netcracker/servicesImpl/RoomServicesImpl.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -2500,7 +2486,7 @@
       <workItem from="1517573650893" duration="16540000" />
       <workItem from="1517766222923" duration="10422000" />
       <workItem from="1517839612631" duration="15731000" />
-      <workItem from="1517918562810" duration="10309000" />
+      <workItem from="1517918562810" duration="10334000" />
     </task>
     <task id="LOCAL-00001" summary="Test Commit">
       <created>1516649550771</created>
@@ -2544,11 +2530,18 @@
       <option name="project" value="LOCAL" />
       <updated>1517859777039</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Hibernate2&#10;">
+      <created>1517938976678</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1517938976678</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="125915000" />
+    <option name="totallyTimeSpent" value="125940000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
