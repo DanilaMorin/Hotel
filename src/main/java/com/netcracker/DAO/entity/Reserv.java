@@ -29,8 +29,10 @@ public class Reserv  {
     @Column (name = "id_client")
     private String id_client;
 
+
     @OneToMany (mappedBy="reserv", fetch=FetchType.EAGER)
     private Collection<Room> tenants;
+
 
 
     public Reserv() {

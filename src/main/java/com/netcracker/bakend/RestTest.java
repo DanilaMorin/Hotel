@@ -18,7 +18,8 @@ public class RestTest {
     @PostMapping("/test")
     void getTest(String login)
     {
-        String date = "2018-01-23";
-        System.out.println(roomService.getListRoom(date));
+        String date = "2018-02-20";
+        String date1 = "2018-02-11";
+        System.out.println(roomService.findAllRoom());
     }
 }

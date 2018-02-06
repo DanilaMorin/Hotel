@@ -1,9 +1,6 @@
 package com.netcracker.services;
 
-import com.netcracker.DAO.entity.Client;
-import com.netcracker.DAO.entity.ClientReviews;
-import com.netcracker.DAO.entity.Reviews;
-import com.netcracker.DAO.entity.ServicePrice;
+import com.netcracker.DAO.entity.*;
 
 import java.util.List;
 
@@ -18,4 +15,5 @@ public interface ClientService {
     Double billForServices(String login) ;
     List<Reviews> getRevByid(String login) ;
     List<ServicePrice> typesOfServices(String login);
+    DataClient getDataClient(String login);
 }

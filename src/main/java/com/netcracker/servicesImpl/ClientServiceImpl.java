@@ -1,10 +1,7 @@
 package com.netcracker.servicesImpl;
 
 import com.netcracker.DAO.datamodel.ClientsDAO;
-import com.netcracker.DAO.entity.Client;
-import com.netcracker.DAO.entity.ClientReviews;
-import com.netcracker.DAO.entity.Reviews;
-import com.netcracker.DAO.entity.ServicePrice;
+import com.netcracker.DAO.entity.*;
 import com.netcracker.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,5 +56,18 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public List<ServicePrice> typesOfServices(String login) {
         return clientsDAO.typesOfServices(login);
+    }
+
+    @Override
+    public DataClient getDataClient(String login) {
+        List<Room> rooms = clientsDAO.getRoomByClient(login);
+        int n = clientsDAO.getNumByClient(login);
+        List<ServicePrice> servicePrices = clientsDAO.typesOfServices(login);
+        System.out.println(rooms);
+        System.out.println(n);
+        System.out.println(servicePrices);
+        DataClient dataClient = new DataClient(rooms,n,servicePrices);
+
+        return dataClient;
     }
 }

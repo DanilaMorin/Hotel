@@ -58,4 +58,8 @@ public class RestClientControler {
         return clientService.getClientById(login);
     }
 
+    @PostMapping("/getDataClient")
+    DataClient getDataClient(String login){
+        return clientService.getDataClient(login);
+    }
 }

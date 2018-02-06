@@ -26,14 +26,24 @@ public class Room {
 
     @ManyToOne (optional=false, cascade=CascadeType.ALL)
     @JoinColumn (name="id_room")
+    //@Column(name = "id_room")
     private Reserv reserv;
 
-    public Room(int id_corps, int number_of_people, int floor, Reserv reserv) {
+    public Room(int id_corps, int number_of_people, int floor, Reserv reserv ) {
         this.id_corps = id_corps;
         this.number_of_people = number_of_people;
         this.floor = floor;
         this.reserv = reserv;
     }
+
+    public Room(int id_rooms,int id_corps, int number_of_people, int floor ) {
+        this.id_rooms = id_rooms;
+        this.id_corps = id_corps;
+        this.number_of_people = number_of_people;
+        this.floor = floor;
+        this.reserv = null;
+    }
+
 
     public Room() {
     }

@@ -3,10 +3,7 @@ package com.netcracker.DAO.implementation;
 
 import com.netcracker.DAO.datamodel.AbstractDAO;
 import com.netcracker.DAO.datamodel.ClientsDAO;
-import com.netcracker.DAO.entity.Client;
-import com.netcracker.DAO.entity.ClientReviews;
-import com.netcracker.DAO.entity.Reviews;
-import com.netcracker.DAO.entity.ServicePrice;
+import com.netcracker.DAO.entity.*;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
@@ -97,5 +94,23 @@ public class ClientsDAOImpl extends AbstractDAO implements ClientsDAO {
         List<ServicePrice> list = (List<ServicePrice>) query.list();
         System.out.println(list);
         return  list;
+    }
+
+    @Override
+    public List<Room> getRoomByClient(String login) {
+        Query query = getSession().createQuery("SELECT new Room(res.id_room,room.id_corps,room.number_of_people,room.floor) from Room as room join room.reserv  as res where  res.id_client = :login");
+        query.setParameter("login", login);
+        List<Room> list = (List<Room>) query.list();
+        return list;
+    }
+
+    @Override
+    public int getNumByClient(String login) {
+        Query query = getSession().createQuery("SELECT count (*) as n from Room as room join room.reserv  as res where  res.id_client = :login");
+        query.setParameter("login", login);
+         List list = query.list();
+       Integer cout = null;
+        cout = Integer.parseInt((String) list.get(0).toString());
+        return cout;
     }
 }

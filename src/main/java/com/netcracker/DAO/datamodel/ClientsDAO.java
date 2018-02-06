@@ -17,4 +17,6 @@ public interface ClientsDAO {
     Double billForServices(String login) ;
     List<Reviews> getRevByid(String login) ;
     List<ServicePrice> typesOfServices(String login);
+    List<Room> getRoomByClient(String login);
+    int getNumByClient(String login);
 }

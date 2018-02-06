@@ -2,6 +2,7 @@ package com.netcracker.DAO.implementation;
 
 import com.netcracker.DAO.datamodel.AbstractDAO;
 import com.netcracker.DAO.datamodel.RoomDAO;
+import com.netcracker.DAO.entity.Client;
 import com.netcracker.DAO.entity.Room;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -43,9 +44,9 @@ public class RoomDAOImpl extends AbstractDAO implements RoomDAO {
 
         @Override
         public List<Room> getListRoom (String date) throws ParseException {
-            List<Room> list = new ArrayList<>();
+            List<Room> list = null;
 
-                Query query = getSession().createQuery("SELECT room from Room as room left join room.reserv  as res where  NOT (res.arrival_date < :date and :date1 < res.date_of_departure) or (res.id is null)");
+                Query query = getSession().createQuery("SELECT new Room(res.id_room,room.id_corps,room.number_of_people,room.floor) from Room as room left join room.reserv  as res where  NOT (res.arrival_date < :date and :date1 < res.date_of_departure) or (res.id is null)");
                 SimpleDateFormat format = new SimpleDateFormat();
                 format.applyPattern("yyyy-MM-dd");
                 java.sql.Date date1 = new java.sql.Date(format.parse(date).getTime());
@@ -62,8 +63,12 @@ public class RoomDAOImpl extends AbstractDAO implements RoomDAO {
 
     @Override
     public List<Room> findAllRoom() {
-        Criteria criteria = getSession().createCriteria(Room.class);
-        List<Room> list =(List<Room>) criteria.list();
+//        Criteria criteria = getSession().createCriteria(Room.class);
+//        List<Room> list =(List<Room>) criteria.list();
+        List<Room> list = null;
+
+        Query query = getSession().createQuery("SELECT new Room(res.id_room,room.id_corps,room.number_of_people,room.floor) from Room as room join room.reserv  as res");
+        list = (List<Room> ) query.list();
         return list;
     }
 
@@ -83,6 +88,20 @@ public class RoomDAOImpl extends AbstractDAO implements RoomDAO {
         query.setInteger("id_corps", id_corp);
         int n =   query.executeUpdate();
         return n;
+    }
+
+    @Override
+    public List<Client> certainTime(String data, String data1) throws ParseException {
+        Query query = getSession().createQuery("SELECT client from Client as client, Reserv as res where client.login = res.id_client and res.arrival_date > :date and res.date_of_departure < :date1 group by login");
+        SimpleDateFormat format = new SimpleDateFormat();
+        format.applyPattern("yyyy-MM-dd");
+        java.sql.Date date01 = new java.sql.Date(format.parse(data).getTime());
+        java.sql.Date date11 = new java.sql.Date(format.parse(data1).getTime());
+        query.setParameter("date", date01);
+        query.setParameter("date1", date11);
+
+        List<Client> list = (List<Client>) query.list();
+        return list;
     }
 }
 

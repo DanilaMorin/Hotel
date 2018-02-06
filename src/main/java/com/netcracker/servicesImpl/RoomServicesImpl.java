@@ -1,7 +1,11 @@
 package com.netcracker.servicesImpl;
 
+import com.netcracker.DAO.datamodel.ClientsDAO;
 import com.netcracker.DAO.datamodel.RoomDAO;
+import com.netcracker.DAO.entity.Client;
+import com.netcracker.DAO.entity.DataClient;
 import com.netcracker.DAO.entity.Room;
+import com.netcracker.DAO.entity.ServicePrice;
 import com.netcracker.DAO.implementation.RoomDAOImpl;
 import com.netcracker.services.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +23,7 @@ import java.util.List;
 public class RoomServicesImpl implements RoomService {
     @Autowired
     RoomDAO roomDAO;
+
 
     @Override
     public Integer getRoomFree() {
@@ -65,4 +70,20 @@ public class RoomServicesImpl implements RoomService {
     public int deleteRoomById(int id_room, int id_corp) {
         return roomDAO.deleteRoomById(id_room,id_corp);
     }
+
+    @Override
+    public List<Client> certainTime(String data, String data1) {
+        List<Client> list;
+        try {
+            list = roomDAO.certainTime(data, data1);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            list = null;
+        }
+
+        return list;
+
+    }
+
+
 }

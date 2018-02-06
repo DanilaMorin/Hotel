@@ -2,10 +2,7 @@ package com.netcracker.DAO.entity;
 
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by user on 15.01.2018.
@@ -13,6 +10,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "clients")
 public class Client {
+
     @Id
     private String login;
     @Column(name = "password", nullable = false )
@@ -27,6 +25,10 @@ public class Client {
     private String sex;
     @Column(name = "email")
     private String email;
+
+//    @ManyToOne(optional=false, cascade=CascadeType.ALL)
+//    @JoinColumn (name="login")
+//    private Reserv reservs;
 
     public Client() {
     }
