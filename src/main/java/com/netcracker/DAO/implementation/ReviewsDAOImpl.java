@@ -4,8 +4,10 @@ import com.netcracker.DAO.datamodel.AbstractDAO;
 import com.netcracker.DAO.datamodel.ReviewsDAO;
 import com.netcracker.DAO.entity.Reviews;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
+import org.postgresql.util.PSQLException;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,7 +16,7 @@ import java.util.List;
  * Created by 12345 on 30.01.2018.
  */
 @Repository
-public class ReviewsDAOImpl extends AbstractDAO implements ReviewsDAO {
+public class ReviewsDAOImpl extends AbstractDAO implements ReviewsDAO  {
 
 
 
@@ -23,8 +25,12 @@ public class ReviewsDAOImpl extends AbstractDAO implements ReviewsDAO {
     }
 
     @Override
-    public void saveReviews(Reviews reviews) {
-        persist(reviews);
+    public void saveReviews(Reviews reviews)  {
+        try {
+            persist(reviews);
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }
 
     }
 

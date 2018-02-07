@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by user on 02.02.2018.
@@ -23,7 +25,15 @@ public class ClientServiceImpl implements ClientService {
     ClientsDAO clientsDAO;
     @Override
     public boolean addClient(Client client) {
-        return clientsDAO.addClient(client);
+        boolean b =false;
+        try {
+            b = clientsDAO.addClient(client);
+        }catch (Exception ex){
+            b = false;
+            Logger.getLogger(ClientReviews.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+        return b;
     }
 
     @Override
@@ -38,7 +48,16 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public List<ClientReviews> getClientReviews() {
-        return clientsDAO.getClientReviews();
+        List<ClientReviews> list;
+        try {
+            list = clientsDAO.getClientReviews();
+
+        }catch (Exception ex){
+            list = null;
+            Logger.getLogger(ClientReviews.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return list;
     }
 
     @Override
@@ -61,7 +80,7 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public DataClient getDataClient(String login) {
         List<Room> rooms = clientsDAO.getRoomByClient(login);
-        int n = clientsDAO.getNumByClient(login);
+        Integer n = clientsDAO.getNumByClient(login);
         List<ServicePrice> servicePrices = clientsDAO.typesOfServices(login);
         System.out.println(rooms);
         System.out.println(n);

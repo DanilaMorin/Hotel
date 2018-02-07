@@ -4,7 +4,9 @@ import com.netcracker.DAO.datamodel.AbstractDAO;
 import com.netcracker.DAO.datamodel.ServiceDAO;
 import com.netcracker.DAO.entity.Service;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.criterion.Restrictions;
+import org.postgresql.util.PSQLException;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -20,7 +22,11 @@ public class ServiceDAOImpl extends AbstractDAO implements ServiceDAO{
 
     @Override
     public void saveService(Service service) {
-        persist(service);
+        try {
+            persist(service);
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

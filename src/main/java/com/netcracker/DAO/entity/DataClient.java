@@ -9,10 +9,10 @@ import java.util.List;
 public class DataClient {
 
     private List<Room> room;
-    private int num;
+    private Integer num;
     private List<ServicePrice> servicePrices;
 
-    public DataClient(List<Room> room, int num, List<ServicePrice> servicePrices) {
+    public DataClient(List<Room> room, Integer num, List<ServicePrice> servicePrices) {
         this.room = room;
         this.num = num;
         this.servicePrices = servicePrices;
@@ -26,11 +26,11 @@ public class DataClient {
         this.room = room;
     }
 
-    public int getNum() {
+    public Integer getNum() {
         return num;
     }
 
-    public void setNum(int num) {
+    public void setNum(Integer num) {
         this.num = num;
     }
 

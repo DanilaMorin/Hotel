@@ -4,8 +4,10 @@ import com.netcracker.DAO.datamodel.AbstractDAO;
 import com.netcracker.DAO.datamodel.ReservDAO;
 import com.netcracker.DAO.entity.Reserv;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
+import org.postgresql.util.PSQLException;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -24,7 +26,11 @@ public class ReservDAOImpl extends AbstractDAO implements ReservDAO {
 
     @Override
     public void saveReserv(Reserv reserv) {
-        persist(reserv);
+        try {
+            persist(reserv);
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }
 
     }
 

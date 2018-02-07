@@ -4,7 +4,9 @@ import com.netcracker.DAO.datamodel.AbstractDAO;
 import com.netcracker.DAO.datamodel.ValueServiceDAO;
 import com.netcracker.DAO.entity.ValueService;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.criterion.Restrictions;
+import org.postgresql.util.PSQLException;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -19,7 +21,11 @@ public class ValueServiceDAOImpl extends AbstractDAO implements ValueServiceDAO 
 
     @Override
     public void saveValueService(ValueService valueService) {
-        persist(valueService);
+        try {
+            persist(valueService);
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

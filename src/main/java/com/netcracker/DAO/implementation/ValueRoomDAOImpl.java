@@ -4,7 +4,9 @@ import com.netcracker.DAO.datamodel.AbstractDAO;
 import com.netcracker.DAO.datamodel.ValueRoomDAO;
 import com.netcracker.DAO.entity.ValueRoom;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.criterion.Restrictions;
+import org.postgresql.util.PSQLException;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -20,7 +22,11 @@ public class ValueRoomDAOImpl extends AbstractDAO implements ValueRoomDAO{
 
     @Override
     public void saveValueRoom(ValueRoom valueRoom) {
-        persist(valueRoom);
+        try {
+            persist(valueRoom);
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

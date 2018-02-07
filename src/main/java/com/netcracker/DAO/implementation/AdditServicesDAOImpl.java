@@ -4,10 +4,14 @@ import com.netcracker.DAO.datamodel.AbstractDAO;
 import com.netcracker.DAO.datamodel.AdditServicesDAO;
 import com.netcracker.DAO.entity.AdditionalServices;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
+import org.hibernate.SharedSessionContract;
 import org.hibernate.criterion.Restrictions;
+import org.postgresql.util.PSQLException;
 import org.springframework.stereotype.Repository;
 
+import java.io.Closeable;
 import java.util.List;
 
 /**
@@ -22,8 +26,9 @@ public class AdditServicesDAOImpl extends AbstractDAO implements AdditServicesDA
 
 
     @Override
-    public void saveAdditServices(AdditionalServices corps) {
-        persist(corps);
+    public AdditionalServices saveAdditServices(AdditionalServices corps) {
+              persist(corps);
+        return corps;
     }
 
     @Override

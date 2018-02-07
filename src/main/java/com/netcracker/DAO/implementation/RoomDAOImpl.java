@@ -5,8 +5,10 @@ import com.netcracker.DAO.datamodel.RoomDAO;
 import com.netcracker.DAO.entity.Client;
 import com.netcracker.DAO.entity.Room;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
+import org.postgresql.util.PSQLException;
 import org.springframework.stereotype.Repository;
 
 
@@ -58,7 +60,11 @@ public class RoomDAOImpl extends AbstractDAO implements RoomDAO {
 
     @Override
     public void saveRoom(Room room) {
-        persist(room);
+        try {
+            persist(room);
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

@@ -29,6 +29,12 @@ public class AdditionalServices {
         this.id_service = id_service;
     }
 
+    public AdditionalServices(AdditionalServices additionalServices) {
+        this.id_reserv = additionalServices.id_reserv;
+        this.id_service = additionalServices.id_service;
+    }
+
+
     public int getId_reserv() {
         return id_reserv;
     }

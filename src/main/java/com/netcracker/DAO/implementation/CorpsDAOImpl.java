@@ -4,8 +4,10 @@ import com.netcracker.DAO.datamodel.AbstractDAO;
 import com.netcracker.DAO.datamodel.CorpsDAO;
 import com.netcracker.DAO.entity.Corps;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
+import org.postgresql.util.PSQLException;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -23,7 +25,11 @@ public class CorpsDAOImpl extends AbstractDAO implements CorpsDAO
 
     @Override
     public void saveCorps(Corps corps) {
-        persist(corps);
+        try {
+            persist(corps);
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

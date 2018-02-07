@@ -8,7 +8,7 @@ import java.util.List;
  * Created by 12345 on 30.01.2018.
  */
 public interface AdditServicesServie {
-    void saveAdditServices(AdditionalServices corps);
+    AdditionalServices saveAdditServices(AdditionalServices corps);
 
     List<AdditionalServices> findAllAdditServices();
 
