@@ -51,8 +51,9 @@ public class ClientsDAOImpl extends AbstractDAO implements ClientsDAO {
 
     @Override
     public List<Client> getClient()  {
-        List<Client> list = new ArrayList<Client>();
+        List list;
        Criteria criteria = getSession().createCriteria(Client.class);
+       list = criteria.list();
         return (List<Client>) list;
     }
 
@@ -121,7 +122,7 @@ public class ClientsDAOImpl extends AbstractDAO implements ClientsDAO {
     public List<Room> getRoomByClient(String login) {
         List<Room> list;
         try {
-            Query query = getSession().createQuery("SELECT new Room(res.id_room,room.id_corps,room.number_of_people,room.floor) from Room as room join room.reserv  as res where  res.id_client = :login");
+            Query query = getSession().createQuery("SELECT new Room(res.id_room,room.id_corps,room.number_of_people,room.floor) from Room as room join room.reserv  as res where  res.id_client = :login and res.id_corp = room.id_corps");
             query.setParameter("login", login);
             list = (List<Room>) query.list();
         }catch (Exception ex){
@@ -137,7 +138,7 @@ public class ClientsDAOImpl extends AbstractDAO implements ClientsDAO {
         List list;
         Integer cout;
         try {
-            Query query = getSession().createQuery("SELECT count (*) as n from Room as room join room.reserv  as res where  res.id_client = :login");
+            Query query = getSession().createQuery("SELECT count (*) as n from Room as room join room.reserv  as res where  res.id_client = :login and res.id_corp = room.id_corps");
             query.setParameter("login", login);
             list = query.list();
             cout = Integer.parseInt((String) list.get(0).toString());

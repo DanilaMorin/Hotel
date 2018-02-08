@@ -25,11 +25,7 @@ public class CorpsDAOImpl extends AbstractDAO implements CorpsDAO
 
     @Override
     public void saveCorps(Corps corps) {
-        try {
             persist(corps);
-        } catch (HibernateException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override

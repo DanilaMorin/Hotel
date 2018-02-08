@@ -5,10 +5,7 @@ import com.netcracker.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -32,8 +29,8 @@ public class RestClientControler {
         return new ResponseEntity<List<ClientReviews>> ((List<ClientReviews>) list, HttpStatus.OK);
     }
 
-    @PostMapping("/add")
-    ResponseEntity<Boolean> setAdditServicesServie(Client client){
+    @PostMapping(value = "/add",consumes = "application/json")
+    ResponseEntity<Boolean> setAdditServicesServie(@RequestBody Client client){
         Boolean b = clientService.addClient(client);
         if (!b)
             return new ResponseEntity<Boolean>(false,HttpStatus.NOT_FOUND);
@@ -60,19 +57,24 @@ public class RestClientControler {
 
     }
 
-    @PostMapping("/getAll")
-    List<Client> getAll(){
+    @GetMapping("/getAll")
+    ResponseEntity<List<Client>> getAll(){
         List<Client> list = clientService.getClient();
-        return list;
+        if (list == null) return new ResponseEntity<List<Client>>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<List<Client>>(list,HttpStatus.OK);
     }
 
     @PostMapping("/getById")
-    Client getClientById(String login){
-        return clientService.getClientById(login);
+    ResponseEntity<Client> getClientById(String login){
+        Client client = clientService.getClientById(login);
+        if (client == null) return new  ResponseEntity<Client>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<Client>(client,HttpStatus.OK);
     }
 
     @PostMapping("/getDataClient")
-    DataClient getDataClient(String login){
-        return clientService.getDataClient(login);
+    ResponseEntity<DataClient> getDataClient(String login){
+        DataClient dataClient = clientService.getDataClient(login);
+        if(dataClient == null) return new ResponseEntity<DataClient>(HttpStatus.NO_CONTENT);
+        return  new ResponseEntity<DataClient>(dataClient,HttpStatus.OK);
     }
 }

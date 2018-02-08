@@ -3,6 +3,8 @@ package com.netcracker.bakend;
 import com.netcracker.DAO.entity.Corps;
 import com.netcracker.services.CorpsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,31 +20,35 @@ public class RestCorpsControler {
     CorpsService corpsService;
 
     @GetMapping("/getAll")
-    List<Corps> getListReserv() {
+    ResponseEntity<List<Corps>> getListReserv() {
         List<Corps> list = null;
         list = corpsService.findAllCorps();
-        return list;
+        if (list == null) return new ResponseEntity<List<Corps>>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<List<Corps>>(list,HttpStatus.OK);
     }
 
-    @PostMapping("/add")
-    void setAdditServicesServie(Corps corps){
-        corpsService.saveCorps(corps);
+    @PostMapping(value = "/add",consumes = "application/json")
+    ResponseEntity<Boolean> setAdditServicesServie(@RequestBody Corps corps){
 
+        Boolean b = corpsService.saveCorps(corps);
+        if(!b) return new ResponseEntity<Boolean>(false,HttpStatus.EXPECTATION_FAILED);
+        return new ResponseEntity<Boolean>(true,HttpStatus.OK);
     }
 
 
     @DeleteMapping("/del")
-    boolean deleteById(int id){
-        int  n = corpsService.deleteCorpsById(id);
-        boolean b = false;
-        if(n > 0) b = true;
-        return b;
+    ResponseEntity<Boolean> deleteById(int id){
+        boolean b = corpsService.deleteCorpsById(id);
+        if(!b) return new ResponseEntity<Boolean>(false,HttpStatus.EXPECTATION_FAILED);
+        return new ResponseEntity<Boolean>(true,HttpStatus.OK);
 
     }
 
     @PostMapping("/getAll")
-    Corps getById(int id){
-        return corpsService.findCorpsById(id);
+    ResponseEntity<Corps> getById(int id){
+        Corps corps = corpsService.findCorpsById(id);
+        if(corps == null) return  new ResponseEntity<Corps>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<Corps>(corps,HttpStatus.OK);
     }
 
 }

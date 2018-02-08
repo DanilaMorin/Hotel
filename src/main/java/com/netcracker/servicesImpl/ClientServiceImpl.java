@@ -79,14 +79,16 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public DataClient getDataClient(String login) {
-        List<Room> rooms = clientsDAO.getRoomByClient(login);
-        Integer n = clientsDAO.getNumByClient(login);
-        List<ServicePrice> servicePrices = clientsDAO.typesOfServices(login);
-        System.out.println(rooms);
-        System.out.println(n);
-        System.out.println(servicePrices);
-        DataClient dataClient = new DataClient(rooms,n,servicePrices);
-
+        DataClient dataClient;
+        try {
+            List<Room> rooms = clientsDAO.getRoomByClient(login);
+            Integer n = clientsDAO.getNumByClient(login);
+            List<ServicePrice> servicePrices = clientsDAO.typesOfServices(login);
+            dataClient = new DataClient(rooms,n,servicePrices);
+        }catch (Exception ex){
+            ex.printStackTrace();
+            dataClient = null;
+        }
         return dataClient;
     }
 }

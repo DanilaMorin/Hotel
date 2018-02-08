@@ -25,8 +25,8 @@ public class Room {
     private int floor ;
 
     @ManyToOne (optional=false, cascade=CascadeType.ALL)
-    @JoinColumn (name="id_room")
-    //@Column(name = "id_room")
+    @JoinColumn (name = "id_room")
+
     private Reserv reserv;
 
     public Room(int id_corps, int number_of_people, int floor, Reserv reserv ) {

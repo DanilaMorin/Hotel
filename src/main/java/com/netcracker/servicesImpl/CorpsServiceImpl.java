@@ -23,8 +23,15 @@ public class CorpsServiceImpl implements CorpsService {
     private CorpsDAO corpsDAO;
 
     @Override
-    public void saveCorps(Corps corps) {
-        corpsDAO.saveCorps(corps);
+    public boolean saveCorps(Corps corps) {
+       Boolean b = true;
+       try {
+           corpsDAO.saveCorps(corps);
+       }catch (Exception ex){
+           b = false;
+       }
+       return b;
+
     }
 
     @Override
@@ -35,12 +42,22 @@ public class CorpsServiceImpl implements CorpsService {
 
     @Override
     public Corps findCorpsById(int id) {
-        return corpsDAO.findCorpsById(id);
+        Corps corps ;
+        try {
+            corps = corpsDAO.findCorpsById(id);
+        }catch (Exception ex){
+            ex.printStackTrace();
+            corps = null;
+        }
+        return corps;
     }
 
     @Override
-    public int deleteCorpsById(int id) {
-        return corpsDAO.deleteCorpsById(id);
+    public boolean deleteCorpsById(int id) {
+        int n = corpsDAO.deleteCorpsById(id);
+        if(n>0) return  true;
+        return false;
+
 
     }
 }
