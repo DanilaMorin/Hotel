@@ -1,6 +1,8 @@
 package com.netcracker.services;
 
 import com.netcracker.DAO.entity.Corps;
+import com.netcracker.exception.EntityNotFound;
+import com.netcracker.exception.FatalError;
 
 import java.util.List;
 
@@ -9,9 +11,9 @@ import java.util.List;
  */
 public interface CorpsService {
     boolean saveCorps(Corps corps);
-    List<Corps> findAllCorps();
-    Corps findCorpsById(int id);
-    boolean  deleteCorpsById(int id);
+    List<Corps> findAllCorps() throws EntityNotFound;
+    Corps findCorpsById(int id) throws FatalError, EntityNotFound;
+    boolean  deleteCorpsById(int id) throws FatalError;
 
 
 }

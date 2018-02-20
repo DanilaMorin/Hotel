@@ -1,7 +1,9 @@
-package com.netcracker.servicesImpl;
+package com.netcracker.services.servicesImpl;
 
 import com.netcracker.DAO.datamodel.ValueServiceDAO;
 import com.netcracker.DAO.entity.ValueService;
+import com.netcracker.exception.EntityNotFound;
+import com.netcracker.exception.FatalError;
 import com.netcracker.services.ValueServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,17 +28,17 @@ public class ValueServiceServiceImpl implements ValueServiceService {
     }
 
     @Override
-    public List<ValueService> findAllValueService() {
+    public List<ValueService> findAllValueService() throws FatalError {
         return valueServiceDAO.findAllValueService();
     }
 
     @Override
-    public ValueService findValueServiceById(int id_corp, int id_service) {
+    public ValueService findValueServiceById(int id_corp, int id_service) throws FatalError, EntityNotFound {
         return valueServiceDAO.findValueServiceById(id_corp,id_service);
     }
 
     @Override
-    public void deleteValueServiceById(int id_corp, int id_service) {
-      valueServiceDAO.deleteValueServiceById(id_corp,id_service);
+    public Integer deleteValueServiceById(int id_corp, int id_service) throws FatalError {
+      return  valueServiceDAO.deleteValueServiceById(id_corp,id_service);
     }
 }

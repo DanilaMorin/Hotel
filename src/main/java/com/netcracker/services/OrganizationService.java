@@ -1,6 +1,8 @@
 package com.netcracker.services;
 
 import com.netcracker.DAO.entity.Organization;
+import com.netcracker.exception.EntityNotFound;
+import com.netcracker.exception.FatalError;
 
 import java.util.List;
 
@@ -11,9 +13,9 @@ import java.util.List;
 public interface OrganizationService {
     void saveOrg(Organization corps);
 
-    List<Organization> findAllOrg();
+    List<Organization> findAllOrg() throws EntityNotFound, FatalError;
 
-    Organization findOrgById(String id);
+    Organization findOrgById(String id) throws FatalError, EntityNotFound;
 
-    int deleteOrgById(String id);
+    int deleteOrgById(String id) throws FatalError;
 }

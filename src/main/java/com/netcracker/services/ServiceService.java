@@ -1,6 +1,8 @@
 package com.netcracker.services;
 
 import com.netcracker.DAO.entity.Service;
+import com.netcracker.exception.EntityNotFound;
+import com.netcracker.exception.FatalError;
 
 import java.util.List;
 
@@ -10,9 +12,9 @@ import java.util.List;
 public interface ServiceService {
     void saveService(Service service);
 
-    List<Service> findAllService();
+    List<Service> findAllService() throws FatalError;
 
-    Service findServiceById(int id);
+    Service findServiceById(int id) throws FatalError, EntityNotFound;
 
-    void deleteServiceById(int id);
+    Integer deleteServiceById(int id) throws FatalError;
 }

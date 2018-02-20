@@ -1,7 +1,9 @@
-package com.netcracker.servicesImpl;
+package com.netcracker.services.servicesImpl;
 
 
 import com.netcracker.DAO.datamodel.ServiceDAO;
+import com.netcracker.exception.EntityNotFound;
+import com.netcracker.exception.FatalError;
 import com.netcracker.services.ServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,17 +28,17 @@ public class ServiceServiceServiceImpl implements ServiceService {
     }
 
     @Override
-    public List<com.netcracker.DAO.entity.Service> findAllService() {
+    public List<com.netcracker.DAO.entity.Service> findAllService() throws FatalError {
         return serviceDAO.findAllService();
     }
 
     @Override
-    public com.netcracker.DAO.entity.Service findServiceById(int id) {
+    public com.netcracker.DAO.entity.Service findServiceById(int id) throws FatalError, EntityNotFound {
         return serviceDAO.findServiceById(id);
     }
 
     @Override
-    public void deleteServiceById(int id) {
-
+    public Integer deleteServiceById(int id) throws FatalError {
+            return serviceDAO.deleteServiceById(id);
     }
 }

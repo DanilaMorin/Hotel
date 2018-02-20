@@ -1,8 +1,12 @@
 package com.netcracker.bakend;
 
 import com.netcracker.DAO.entity.*;
+import com.netcracker.exception.EntityNotFound;
+import com.netcracker.exception.FatalError;
+import com.netcracker.exception.TraceException;
 import com.netcracker.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,60 +25,85 @@ public class RestClientControler {
     ClientService clientService;
 
     @GetMapping(value = "/reviews")
-    ResponseEntity<List<ClientReviews>> getMap() {
-        List<ClientReviews> list = clientService.getClientReviews();
-        if (list  == null)
-            return new ResponseEntity<List<ClientReviews>>(HttpStatus.NOT_FOUND);
+    ResponseEntity getMap() {
+        try {
+            List<ClientReviews> list = clientService.getClientReviews();
+            return new ResponseEntity<List<ClientReviews>> ((List<ClientReviews>) list, HttpStatus.OK);
+        }catch (EntityNotFound ex){
+            return new ResponseEntity<String> (ex.getMessage(), HttpStatus.NOT_FOUND);
+        }
 
-        return new ResponseEntity<List<ClientReviews>> ((List<ClientReviews>) list, HttpStatus.OK);
+
     }
 
     @PostMapping(value = "/add",consumes = "application/json")
-    ResponseEntity<Boolean> setAdditServicesServie(@RequestBody Client client){
-        Boolean b = clientService.addClient(client);
-        if (!b)
-            return new ResponseEntity<Boolean>(false,HttpStatus.NOT_FOUND);
-
-        return new ResponseEntity<Boolean> (true, HttpStatus.OK);
+    ResponseEntity setAdditServicesServie(@RequestBody Client client){
+        try {
+            clientService.addClient(client);
+            return new ResponseEntity<String>("Uploaded", HttpStatus.OK);
+        }
+        catch (DataIntegrityViolationException ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<String>("Such an object already exists", HttpStatus.NOT_FOUND);
+        }catch (Exception ex){
+            System.out.println("Error");
+            ex.printStackTrace();
+            return new ResponseEntity<String>("Not Added",HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
     @PostMapping("/dataByID")
-    ResponseEntity<Map<String, Object>> getData(String login) {
-        Map<String, Object> map = new HashMap<>();
-
-        Double price = clientService.billForServices(login);
-        List<Reviews> list = clientService.getRevByid(login);
-        List <ServicePrice> map1 = clientService.typesOfServices(login);
-        System.out.println(price);
-        System.out.println(list);
-        System.out.println(map1);
-       if ((price.equals(-1.0)) & (list == null) & (map1 == null))
-           map = null;
-        if (map == null) return new ResponseEntity<Map<String, Object>>(map,HttpStatus.NOT_FOUND);
-        map.put("price", price);
-        map.put("Reviews",list);
-        map.put("ServicePrice", map1);
-        return new ResponseEntity<Map<String, Object>>(map,HttpStatus.OK );
-
+    ResponseEntity getData(String login) {
+        try {
+            Map<String, Object> result = new HashMap<>();
+            Double price = clientService.billForServices(login);
+            List<Reviews> list = clientService.getRevByid(login);
+            List <ServicePrice> map = clientService.typesOfServices(login);
+            result.put("price", price);
+            result.put("Reviews",list);
+            result.put("ServicePrice", map);
+            return new ResponseEntity<Map<String, Object>>(result,HttpStatus.OK );
+        }catch (EntityNotFound e) {
+            return new ResponseEntity<String>(e.getMessage(),HttpStatus.NOT_FOUND);
+        }catch (FatalError e){
+            return new ResponseEntity<String>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/getAll")
-    ResponseEntity<List<Client>> getAll(){
-        List<Client> list = clientService.getClient();
-        if (list == null) return new ResponseEntity<List<Client>>(HttpStatus.NO_CONTENT);
-        return new ResponseEntity<List<Client>>(list,HttpStatus.OK);
+    ResponseEntity getAll() {
+        List<Client> list = null;
+        try {
+            list = clientService.getClient();
+            return new ResponseEntity<List<Client>>(list,HttpStatus.OK);
+        } catch (FatalError fatalError) {
+            return new ResponseEntity<String>(fatalError.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PostMapping("/getById")
-    ResponseEntity<Client> getClientById(String login){
-        Client client = clientService.getClientById(login);
-        if (client == null) return new  ResponseEntity<Client>(HttpStatus.NO_CONTENT);
-        return new ResponseEntity<Client>(client,HttpStatus.OK);
+    ResponseEntity getClientById(String login){
+        try {
+           Client client = clientService.getClientById(login);
+            return new ResponseEntity<Client>(client,HttpStatus.OK);
+        } catch (FatalError fatalError) {
+            return new ResponseEntity<String>(fatalError.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (EntityNotFound entityNotFound) {
+            return new ResponseEntity<String>(entityNotFound.getMessage(), HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping("/getDataClient")
-    ResponseEntity<DataClient> getDataClient(String login){
-        DataClient dataClient = clientService.getDataClient(login);
-        if(dataClient == null) return new ResponseEntity<DataClient>(HttpStatus.NO_CONTENT);
-        return  new ResponseEntity<DataClient>(dataClient,HttpStatus.OK);
+    ResponseEntity getDataClient(String login){
+
+        try {
+            DataClient    dataClient = clientService.getDataClient(login);
+            return  new ResponseEntity<DataClient>(dataClient,HttpStatus.OK);
+        } catch (FatalError fatalError) {
+            return new ResponseEntity<String>(fatalError.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+
+        } catch (EntityNotFound entityNotFound) {
+            entityNotFound.printStackTrace();
+            return new ResponseEntity<String>(entityNotFound.getMessage(),HttpStatus.NOT_FOUND);
+        }
     }
 }

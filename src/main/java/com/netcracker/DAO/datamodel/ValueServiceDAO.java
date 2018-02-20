@@ -1,6 +1,8 @@
 package com.netcracker.DAO.datamodel;
 
 import com.netcracker.DAO.entity.ValueService;
+import com.netcracker.exception.EntityNotFound;
+import com.netcracker.exception.FatalError;
 
 import java.util.List;
 
@@ -10,9 +12,9 @@ import java.util.List;
 public interface ValueServiceDAO {
     void saveValueService(ValueService valueService);
 
-    List<ValueService> findAllValueService();
+    List<ValueService> findAllValueService() throws FatalError;
 
-    ValueService findValueServiceById(int id_corp, int id_service);
+    ValueService findValueServiceById(int id_corp, int id_service) throws EntityNotFound, FatalError;
 
-    void deleteValueServiceById(int id_corp, int id_service);
+    Integer deleteValueServiceById(int id_corp, int id_service) throws FatalError;
 }

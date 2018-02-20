@@ -1,7 +1,8 @@
-package com.netcracker.servicesImpl;
+package com.netcracker.services.servicesImpl;
 
 import com.netcracker.DAO.datamodel.ValueRoomDAO;
 import com.netcracker.DAO.entity.ValueRoom;
+import com.netcracker.exception.FatalError;
 import com.netcracker.services.ValueRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,17 +27,17 @@ public class ValueRoomServiceImpl implements ValueRoomService{
     }
 
     @Override
-    public List<ValueRoom> findAllValueRoom() {
+    public List<ValueRoom> findAllValueRoom() throws FatalError {
         return valueRoomDAO.findAllValueRoom();
     }
 
     @Override
-    public ValueRoom findValueRoomById(int stars, int number) {
+    public ValueRoom findValueRoomById(int stars, int number) throws FatalError {
         return valueRoomDAO.findValueRoomById(stars,number);
     }
 
     @Override
-    public void deleteServiceById(int stars, int number) {
-
+    public Integer deleteServiceById(int stars, int number) throws FatalError {
+            return valueRoomDAO.deleteValueRoomById(stars,number);
     }
 }

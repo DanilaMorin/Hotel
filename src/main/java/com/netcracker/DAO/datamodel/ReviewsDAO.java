@@ -1,6 +1,8 @@
 package com.netcracker.DAO.datamodel;
 
 import com.netcracker.DAO.entity.Reviews;
+import com.netcracker.exception.EntityNotFound;
+import com.netcracker.exception.FatalError;
 
 import java.util.List;
 
@@ -11,9 +13,9 @@ import java.util.List;
 public interface ReviewsDAO {
     void saveReviews(Reviews reviews);
 
-    List<Reviews> findAllReviews();
+    List<Reviews> findAllReviews() throws FatalError;
 
-    Reviews findReviewsById(int id);
+    Reviews findReviewsById(int id) throws EntityNotFound, FatalError;
 
-    int deleteReviewsById(int id);
+    int deleteReviewsById(int id) throws FatalError;
 }

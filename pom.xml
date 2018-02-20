@@ -60,8 +60,26 @@
             <artifactId>spring-orm</artifactId>
             <version>${spring.version}</version>
         </dependency>
-
-
+        <!--<dependency>-->
+            <!--<groupId>io.swagger</groupId>-->
+            <!--<artifactId>swagger-jaxrs</artifactId>-->
+            <!--<version>1.5.8</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+        <!--<groupId>com.holon-platform.jaxrs</groupId>-->
+        <!--<artifactId>holon-jaxrs-swagger</artifactId>-->
+        <!--<version> 5.0.4</version>-->
+    <!--</dependency>-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>2.7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>2.7.0</version>
+        </dependency>
     </dependencies>
 
 

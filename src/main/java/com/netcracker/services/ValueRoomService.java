@@ -1,6 +1,7 @@
 package com.netcracker.services;
 
 import com.netcracker.DAO.entity.ValueRoom;
+import com.netcracker.exception.FatalError;
 
 import java.util.List;
 
@@ -10,9 +11,9 @@ import java.util.List;
 public interface ValueRoomService {
     void saveValueRoom(ValueRoom valueRoom);
 
-    List<ValueRoom> findAllValueRoom();
+    List<ValueRoom> findAllValueRoom() throws FatalError;
 
-    ValueRoom findValueRoomById(int stars, int number);
+    ValueRoom findValueRoomById(int stars, int number) throws FatalError;
 
-    void deleteServiceById(int stars, int number);
+    Integer deleteServiceById(int stars, int number) throws FatalError;
 }

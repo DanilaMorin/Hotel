@@ -1,6 +1,8 @@
 package com.netcracker.services;
 
 import com.netcracker.DAO.entity.Reserv;
+import com.netcracker.exception.EntityNotFound;
+import com.netcracker.exception.FatalError;
 
 import java.util.List;
 
@@ -9,9 +11,9 @@ import java.util.List;
  */
 public interface ReservService {
     void saveReserv(Reserv reserv);
-    List<Reserv> findAllReserv();
-    Reserv findReservById(int id);
-    int deleteReservById(int id);
+    List<Reserv> findAllReserv() throws FatalError;
+    Reserv findReservById(int id) throws FatalError, EntityNotFound;
+    int deleteReservById(int id) throws FatalError;
 
 }
 

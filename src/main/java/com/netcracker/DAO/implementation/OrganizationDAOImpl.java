@@ -3,6 +3,8 @@ package com.netcracker.DAO.implementation;
 import com.netcracker.DAO.datamodel.AbstractDAO;
 import com.netcracker.DAO.datamodel.OrganizationDAO;
 import com.netcracker.DAO.entity.Organization;
+import com.netcracker.exception.EntityNotFound;
+import com.netcracker.exception.FatalError;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -25,33 +27,50 @@ public class OrganizationDAOImpl extends AbstractDAO implements OrganizationDAO 
 
     @Override
     public void saveOrg(Organization corps) {
-        try {
             persist(corps);
-        } catch (HibernateException e) {
-            e.printStackTrace();
+    }
+
+    @Override
+    public List<Organization> findAllOrg() throws EntityNotFound, FatalError {
+        try {
+            Criteria criteria = getSession().createCriteria(Organization.class);
+            List<Organization> list = (List<Organization>) criteria.list();
+            if(list == null) throw new EntityNotFound("NoOrganizations");
+            return list;
+         }catch (Exception ex){
+             ex.printStackTrace();
+        throw new FatalError("base is not responding");
+         }
+    }
+
+    @Override
+    public Organization findOrgById(String id) throws EntityNotFound, FatalError {
+        try {
+            Criteria criteria = getSession().createCriteria(Organization.class);
+            criteria.add(Restrictions.eq("id", id));
+            Organization organization = (Organization) criteria.uniqueResult();
+            if (organization == null) throw new EntityNotFound("NoOrganization");
+            return organization;
+        }catch (EntityNotFound ex){
+            throw new EntityNotFound(ex.getMessage());
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+            throw  new FatalError("base is not responding");
+        }
         }
 
-    }
-
     @Override
-    public List<Organization> findAllOrg() {
-        Criteria criteria = getSession().createCriteria(Organization.class);
-        return (List<Organization>) criteria.list();
-
-    }
-
-    @Override
-    public Organization findOrgById(String id) {
-        Criteria criteria = getSession().createCriteria(Organization.class);
-        criteria.add(Restrictions.eq("id", id));
-        return (Organization) criteria.uniqueResult();
-    }
-
-    @Override
-    public int deleteOrgById(String id) {
+    public int deleteOrgById(String id) throws FatalError {
+     try {
         Query query =  getSession().createQuery("delete Organization where login = :id ");
         query.setParameter("id", id);
         int result = query.executeUpdate();
         return result;
+    }
+        catch (Exception ex){
+        ex.printStackTrace();
+        throw new FatalError("base is not responding");
+    }
     }
 }

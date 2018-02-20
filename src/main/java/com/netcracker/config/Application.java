@@ -5,8 +5,6 @@ package com.netcracker.config;
  */
 import java.util.Arrays;
 
-import com.netcracker.services.*;
-import com.netcracker.servicesImpl.ReservServiceImpl;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -39,12 +37,19 @@ public class Application {
         };
 
     }
-    @Bean
-    public ReservService getReservService(ReservService reservService){
-        ReservService service = new ReservServiceImpl();
-        return service;
+//    @Bean
+//    public ReservService getReservService(ReservService reservService){
+//        ReservService service = new ReservServiceImpl();
+//        return service;
+//
+//    }
 
-    }
+//    @Bean
+//     public  SampleApplication getSampleApplication(SampleApplication sampleApplication){
+//        SampleApplication sample= new SampleApplication();
+//        return sample;
+//    }
+
 //
 
 //    @Bean

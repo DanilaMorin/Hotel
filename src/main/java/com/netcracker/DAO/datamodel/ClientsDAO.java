@@ -3,6 +3,9 @@ package com.netcracker.DAO.datamodel;
 
 import com.netcracker.DAO.entity.*;
 import com.netcracker.DAO.entity.Reviews;
+import com.netcracker.exception.EntityNotFound;
+import com.netcracker.exception.FatalError;
+import com.netcracker.exception.TraceException;
 
 import java.util.List;
 
@@ -11,12 +14,12 @@ import java.util.List;
  */
 public interface ClientsDAO {
     boolean addClient(Client client);
-    List<Client> getClient() ;
-    Client getClientById(String login);
-    List<ClientReviews> getClientReviews() ;
-    Double billForServices(String login) ;
-    List<Reviews> getRevByid(String login) ;
-    List<ServicePrice> typesOfServices(String login);
-    List<Room> getRoomByClient(String login);
-    int getNumByClient(String login);
+    List<Client> getClient() throws FatalError;
+    Client getClientById(String login) throws EntityNotFound, FatalError;
+    List<ClientReviews> getClientReviews() throws EntityNotFound;
+    Double billForServices(String login)  throws  EntityNotFound, FatalError;
+    List<Reviews> getRevByid(String login) throws FatalError;
+    List<ServicePrice> typesOfServices(String login) throws FatalError;
+    List<Room> getRoomByClient(String login) throws FatalError;
+    int getNumByClient(String login) throws FatalError, EntityNotFound;
 }

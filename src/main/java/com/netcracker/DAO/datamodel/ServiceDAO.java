@@ -1,6 +1,8 @@
 package com.netcracker.DAO.datamodel;
 
 import com.netcracker.DAO.entity.Service;
+import com.netcracker.exception.EntityNotFound;
+import com.netcracker.exception.FatalError;
 
 import java.util.List;
 
@@ -11,9 +13,9 @@ public interface ServiceDAO {
 
     void saveService(Service service);
 
-    List<Service> findAllService();
+    List<Service> findAllService() throws FatalError;
 
-    Service findServiceById(int id);
+    Service findServiceById(int id) throws EntityNotFound, FatalError;
 
-    void deleteServiceById(int id);
+    Integer deleteServiceById(int id) throws FatalError;
 }

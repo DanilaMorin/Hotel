@@ -1,12 +1,10 @@
-package com.netcracker.servicesImpl;
+package com.netcracker.services.servicesImpl;
 
-import com.netcracker.DAO.datamodel.ClientsDAO;
 import com.netcracker.DAO.datamodel.RoomDAO;
 import com.netcracker.DAO.entity.Client;
-import com.netcracker.DAO.entity.DataClient;
 import com.netcracker.DAO.entity.Room;
-import com.netcracker.DAO.entity.ServicePrice;
-import com.netcracker.DAO.implementation.RoomDAOImpl;
+import com.netcracker.exception.EntityNotFound;
+import com.netcracker.exception.FatalError;
 import com.netcracker.services.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,28 +24,16 @@ public class RoomServicesImpl implements RoomService {
 
 
     @Override
-    public Integer getRoomFree() {
+    public Integer getRoomFree() throws  com.netcracker.exception.ParseException, FatalError {
         Integer count = 0;
-
-        try {
-            count  = roomDAO.getRoomFree();
-        } catch (ParseException e) {
-            e.printStackTrace();
-            count = null;
-        }
-        return count;
+            count = roomDAO.getRoomFree();
+            return count;
     }
 
     @Override
-    public List<Room> getListRoom(String date) {
-        List<Room> list;
-        try {
+    public List<Room> getListRoom(String date) throws com.netcracker.exception.ParseException, FatalError {
+            List<Room> list;
             list  = roomDAO.getListRoom(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-            list = null;
-
-        }
         return list;
     }
 
@@ -57,30 +43,24 @@ public class RoomServicesImpl implements RoomService {
     }
 
     @Override
-    public List<Room> findAllRoom() {
+    public List<Room> findAllRoom() throws FatalError {
         return roomDAO.findAllRoom();
     }
 
     @Override
-    public Room findRoomById(int id_room, int id_corp) {
+    public Room findRoomById(int id_room, int id_corp) throws FatalError, EntityNotFound {
         return roomDAO.findRoomById(id_room,id_corp);
     }
 
     @Override
-    public int deleteRoomById(int id_room, int id_corp) {
+    public int deleteRoomById(int id_room, int id_corp) throws FatalError {
         return roomDAO.deleteRoomById(id_room,id_corp);
     }
 
     @Override
-    public List<Client> certainTime(String data, String data1) {
+    public List<Client> certainTime(String data, String data1) throws com.netcracker.exception.ParseException, FatalError {
         List<Client> list;
-        try {
             list = roomDAO.certainTime(data, data1);
-        } catch (ParseException e) {
-            e.printStackTrace();
-            list = null;
-        }
-
         return list;
 
     }

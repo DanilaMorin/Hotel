@@ -1,8 +1,13 @@
 package com.netcracker.bakend;
 
 import com.netcracker.DAO.entity.Service;
+import com.netcracker.exception.EntityNotFound;
+import com.netcracker.exception.FatalError;
 import com.netcracker.services.ServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,29 +24,61 @@ public class RestServiceControler {
 
 
     @GetMapping("/getAll")
-    List<Service> getListService(){
+    ResponseEntity getListService()  {
         List<Service> list = null;
-        list = serviceService.findAllService();
-        return  list;
+        try {
+            list = serviceService.findAllService();
+            return  new ResponseEntity<List<Service>>(list, HttpStatus.OK);
+        } catch (FatalError fatalError) {
+            fatalError.printStackTrace();
+            return new ResponseEntity<String>(fatalError.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     @GetMapping("/getById/{id}")
-    Service getServiceById(@PathVariable("id") int id){
+    ResponseEntity getServiceById(@PathVariable("id") int id)  {
+        Service service = null;
+        try {
+            service = serviceService.findServiceById(id);
+            return new ResponseEntity<Service>(service,HttpStatus.OK);
+        } catch (FatalError fatalError) {
+            fatalError.printStackTrace();
+            return new ResponseEntity<String>(fatalError.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (EntityNotFound entityNotFound) {
+            entityNotFound.printStackTrace();
+            return new ResponseEntity<String>(entityNotFound.getMessage(),HttpStatus.NOT_FOUND);
+        }
 
-        Service service = serviceService.findServiceById(id);
-        return service;
     }
     @PostMapping("/add")
-    Service addReserv(Service reserv)
+   ResponseEntity addReserv(Service service)
     {
-        serviceService.saveService(reserv);
-        return reserv;
+        try {
+            serviceService.saveService(service);
+            return new ResponseEntity<String>("Uploaded", HttpStatus.OK);
+        } catch (DataIntegrityViolationException ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<String>("Such an object already exists", HttpStatus.NOT_FOUND);
+        } catch (Exception ex){
+            ex.printStackTrace();
+            return new ResponseEntity<String>("Not Added",HttpStatus.INTERNAL_SERVER_ERROR);
+    }
     }
 
     @DeleteMapping("/del")
-    boolean deleteById(int id){
-        serviceService.deleteServiceById(id);
-        return true;
+    ResponseEntity deleteById(int id){
+        int n = 0;
+        try {
+            n = serviceService.deleteServiceById(id);
+            Boolean b = false;
+            if (n > 0) b = true;
+            return new ResponseEntity<Boolean>(b,HttpStatus.OK);
+        } catch (FatalError fatalError) {
+            fatalError.printStackTrace();
+            return  new ResponseEntity<String>(fatalError.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
 }

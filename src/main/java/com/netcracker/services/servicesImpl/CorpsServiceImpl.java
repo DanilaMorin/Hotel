@@ -1,7 +1,9 @@
-package com.netcracker.servicesImpl;
+package com.netcracker.services.servicesImpl;
 
 import com.netcracker.DAO.datamodel.CorpsDAO;
 import com.netcracker.DAO.entity.Corps;
+import com.netcracker.exception.EntityNotFound;
+import com.netcracker.exception.FatalError;
 import com.netcracker.services.CorpsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,25 +37,20 @@ public class CorpsServiceImpl implements CorpsService {
     }
 
     @Override
-    public List<Corps> findAllCorps() {
+    public List<Corps> findAllCorps() throws EntityNotFound {
 
         return corpsDAO.findAllCorps();
     }
 
     @Override
-    public Corps findCorpsById(int id) {
+    public Corps findCorpsById(int id) throws FatalError, EntityNotFound {
         Corps corps ;
-        try {
-            corps = corpsDAO.findCorpsById(id);
-        }catch (Exception ex){
-            ex.printStackTrace();
-            corps = null;
-        }
+        corps = corpsDAO.findCorpsById(id);
         return corps;
     }
 
     @Override
-    public boolean deleteCorpsById(int id) {
+    public boolean deleteCorpsById(int id) throws FatalError {
         int n = corpsDAO.deleteCorpsById(id);
         if(n>0) return  true;
         return false;

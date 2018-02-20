@@ -1,7 +1,10 @@
-package com.netcracker.servicesImpl;
+package com.netcracker.services.servicesImpl;
 
 import com.netcracker.DAO.datamodel.ClientsDAO;
 import com.netcracker.DAO.entity.*;
+import com.netcracker.exception.EntityNotFound;
+import com.netcracker.exception.FatalError;
+import com.netcracker.exception.TraceException;
 import com.netcracker.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,70 +28,52 @@ public class ClientServiceImpl implements ClientService {
     ClientsDAO clientsDAO;
     @Override
     public boolean addClient(Client client) {
-        boolean b =false;
-        try {
-            b = clientsDAO.addClient(client);
-        }catch (Exception ex){
-            b = false;
-            Logger.getLogger(ClientReviews.class.getName()).log(Level.SEVERE, null, ex);
-
-        }
+        boolean b = clientsDAO.addClient(client);
         return b;
     }
 
     @Override
-    public List<Client> getClient() {
+    public List<Client> getClient() throws FatalError {
         return clientsDAO.getClient();
     }
 
     @Override
-    public Client getClientById(String login) {
+    public Client getClientById(String login) throws FatalError, EntityNotFound {
         return clientsDAO.getClientById(login);
     }
 
     @Override
-    public List<ClientReviews> getClientReviews() {
+    public List<ClientReviews> getClientReviews() throws EntityNotFound {
         List<ClientReviews> list;
-        try {
             list = clientsDAO.getClientReviews();
-
-        }catch (Exception ex){
-            list = null;
-            Logger.getLogger(ClientReviews.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
         return list;
     }
 
     @Override
-    public Double billForServices(String login) {
+    public Double billForServices(String login) throws FatalError, EntityNotFound {
 
         return clientsDAO.billForServices(login);
     }
 
     @Override
-    public List<Reviews> getRevByid(String login) {
+    public List<Reviews> getRevByid(String login) throws FatalError {
 
         return clientsDAO.getRevByid(login);
     }
 
     @Override
-    public List<ServicePrice> typesOfServices(String login) {
+    public List<ServicePrice> typesOfServices(String login) throws FatalError {
         return clientsDAO.typesOfServices(login);
     }
 
     @Override
-    public DataClient getDataClient(String login) {
+    public DataClient getDataClient(String login) throws FatalError, EntityNotFound {
         DataClient dataClient;
-        try {
-            List<Room> rooms = clientsDAO.getRoomByClient(login);
-            Integer n = clientsDAO.getNumByClient(login);
-            List<ServicePrice> servicePrices = clientsDAO.typesOfServices(login);
-            dataClient = new DataClient(rooms,n,servicePrices);
-        }catch (Exception ex){
-            ex.printStackTrace();
-            dataClient = null;
-        }
+        List<Room> rooms = clientsDAO.getRoomByClient(login);
+        Integer n = clientsDAO.getNumByClient(login);
+        List<ServicePrice> servicePrices = clientsDAO.typesOfServices(login);
+        dataClient = new DataClient(rooms, n, servicePrices);
         return dataClient;
+
     }
 }

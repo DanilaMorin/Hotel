@@ -1,7 +1,9 @@
-package com.netcracker.servicesImpl;
+package com.netcracker.services.servicesImpl;
 
 import com.netcracker.DAO.datamodel.OrganizationDAO;
 import com.netcracker.DAO.entity.Organization;
+import com.netcracker.exception.EntityNotFound;
+import com.netcracker.exception.FatalError;
 import com.netcracker.services.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,21 +28,21 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     @Override
-    public List<Organization> findAllOrg() {
+    public List<Organization> findAllOrg() throws EntityNotFound, FatalError {
         List<Organization> list = null;
         list = dao.findAllOrg();
         return list;
     }
 
     @Override
-    public Organization findOrgById(String id) {
+    public Organization findOrgById(String id) throws FatalError, EntityNotFound {
         Organization org = null;
         org = dao.findOrgById(id);
         return org;
     }
 
     @Override
-    public int deleteOrgById(String id) {
+    public int deleteOrgById(String id) throws FatalError {
         return dao.deleteOrgById(id);
 
     }

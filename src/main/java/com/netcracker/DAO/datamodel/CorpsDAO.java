@@ -2,6 +2,8 @@ package com.netcracker.DAO.datamodel;
 
 
 import com.netcracker.DAO.entity.Corps;
+import com.netcracker.exception.EntityNotFound;
+import com.netcracker.exception.FatalError;
 
 import java.util.List;
 
@@ -11,9 +13,9 @@ import java.util.List;
 public interface CorpsDAO {
     void saveCorps(Corps corps);
 
-    List<Corps> findAllCorps();
+    List<Corps> findAllCorps() throws EntityNotFound;
 
-    Corps findCorpsById(int id);
+    Corps findCorpsById(int id) throws EntityNotFound, FatalError;
 
-    int deleteCorpsById(int id);
+    int deleteCorpsById(int id) throws FatalError;
 }

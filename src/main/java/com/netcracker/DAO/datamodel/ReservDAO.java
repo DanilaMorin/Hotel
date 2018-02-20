@@ -1,6 +1,8 @@
 package com.netcracker.DAO.datamodel;
 
 import com.netcracker.DAO.entity.Reserv;
+import com.netcracker.exception.EntityNotFound;
+import com.netcracker.exception.FatalError;
 
 import java.util.List;
 
@@ -10,10 +12,10 @@ import java.util.List;
 public interface ReservDAO {
     void saveReserv(Reserv Reserv);
 
-    List<Reserv> findAllReserv();
+    List<Reserv> findAllReserv() throws FatalError;
 
-    Reserv findReservById(int id);
+    Reserv findReservById(int id) throws EntityNotFound, FatalError;
 
-    int deleteReservById(int id);
+    int deleteReservById(int id) throws FatalError;
 
 }
