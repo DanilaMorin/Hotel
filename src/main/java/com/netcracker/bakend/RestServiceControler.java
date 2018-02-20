@@ -55,6 +55,7 @@ public class RestServiceControler {
    ResponseEntity addReserv(@RequestBody Service service)
     {
         try {
+            service.setName(Validation.parseStirng(service.getName()));
             serviceService.saveService(service);
             return new ResponseEntity<String>("Uploaded", HttpStatus.OK);
         } catch (DataIntegrityViolationException ex) {

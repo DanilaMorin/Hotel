@@ -29,8 +29,9 @@ public class RestClientControler {
         try {
             List<ClientReviews> list = clientService.getClientReviews();
             return new ResponseEntity<List<ClientReviews>> ((List<ClientReviews>) list, HttpStatus.OK);
-        }catch (EntityNotFound ex){
-            return new ResponseEntity<String> (ex.getMessage(), HttpStatus.NOT_FOUND);
+        } catch (FatalError fatalError) {
+            fatalError.printStackTrace();
+            return new ResponseEntity<String> (fatalError.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
 
@@ -39,6 +40,7 @@ public class RestClientControler {
     @PostMapping(value = "/add",consumes = "application/json")
     ResponseEntity setAdditServicesServie(@RequestBody Client client){
         try {
+            client.parseString();
             clientService.addClient(client);
             return new ResponseEntity<String>("Uploaded", HttpStatus.OK);
         }
@@ -54,6 +56,7 @@ public class RestClientControler {
     @PostMapping("/dataByID")
     ResponseEntity getData(String login) {
         try {
+            login = Validation.parseStirng(login);
             Map<String, Object> result = new HashMap<>();
             Double price = clientService.billForServices(login);
             List<Reviews> list = clientService.getRevByid(login);
@@ -83,7 +86,8 @@ public class RestClientControler {
     @PostMapping("/getById")
     ResponseEntity getClientById(String login){
         try {
-           Client client = clientService.getClientById(login);
+            login = Validation.parseStirng(login);
+            Client client = clientService.getClientById(login);
             return new ResponseEntity<Client>(client,HttpStatus.OK);
         } catch (FatalError fatalError) {
             return new ResponseEntity<String>(fatalError.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -94,8 +98,8 @@ public class RestClientControler {
 
     @PostMapping("/getDataClient")
     ResponseEntity getDataClient(String login){
-
         try {
+            login = Validation.parseStirng(login);
             DataClient    dataClient = clientService.getDataClient(login);
             return  new ResponseEntity<DataClient>(dataClient,HttpStatus.OK);
         } catch (FatalError fatalError) {

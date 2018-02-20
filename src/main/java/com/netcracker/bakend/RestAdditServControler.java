@@ -50,17 +50,6 @@ public class RestAdditServControler {
             ex.printStackTrace();
             return new ResponseEntity<String>("Not Added",HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
-
-//               services = null;
-//               Logger.getLogger(AdditionalServices.class.getName()).log(Level.SEVERE, null, ex);
-
-
-//        if (b)
-//            return new ResponseEntity<Boolean>(false,HttpStatus.NOT_FOUND);
-//
-//        return new ResponseEntity<Boolean>(true, HttpStatus.OK);
-
     }
 
     @PostMapping("/getAll")
@@ -84,10 +73,8 @@ public class RestAdditServControler {
         } catch (FatalError fatalError) {
             return new ResponseEntity<String>(fatalError.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        if (!b){
-            return new ResponseEntity<Boolean>(b,HttpStatus.OK);
-        }
-        return new ResponseEntity<Boolean>(b, HttpStatus.OK);
+         return new ResponseEntity<Boolean>(b,HttpStatus.OK);
+
 
     }
     @GetMapping("/getAll")
@@ -101,10 +88,7 @@ public class RestAdditServControler {
         } catch (EntityNotFound entityNotFound) {
             entityNotFound.printStackTrace();
             return new ResponseEntity<String>( entityNotFound.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
-
         }
-
-
     }
 }
 

@@ -7,6 +7,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 //import com.holonplatform.jaxrs.swagger.annotations.ApiDefinition;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 
@@ -27,9 +29,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/test")
 public class RestTest {
 
-    @GetMapping
-    public Response ping() {
-        return Response.ok("pong").build();
+    @GetMapping()
+    ResponseEntity<String> ping(String str) {
+
+        return new ResponseEntity<String>(Validation.parseStirng(str),HttpStatus.OK);
     }
 
 }

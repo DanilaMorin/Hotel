@@ -24,6 +24,7 @@ public class RestReviewsDAO {
     @PostMapping("/add")
     ResponseEntity saveReviews(@RequestBody Reviews reviews){
         try {
+            reviews.setText(Validation.parseString1(reviews.getText()));
             reviewsService.saveReviews(reviews);
             return new ResponseEntity<String>("Uploaded", HttpStatus.OK);
         }

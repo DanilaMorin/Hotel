@@ -1,5 +1,7 @@
 package com.netcracker.DAO.entity;
 
+import com.netcracker.bakend.Validation;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -92,6 +94,14 @@ public class Organization {
         this.discount = discount;
     }
 
+    public void parseString(){
+        this.login = Validation.parseStirng(login);
+        this.password = Validation.parseStirng(password);
+        this.email = Validation.parseStirng(email);
+        this.name = Validation.parseStirng(name);
+        this.action = Validation.parseStirng(action);
+
+    }
     @Override
     public String toString() {
         return "OrganizationDAO{" +

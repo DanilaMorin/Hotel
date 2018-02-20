@@ -31,14 +31,14 @@ public class ClientsDAOImpl extends AbstractDAO implements ClientsDAO {
     }
 
     @Override
-    public List<ClientReviews> getClientReviews() throws EntityNotFound {
+    public List<ClientReviews> getClientReviews() throws  FatalError {
         try {
             Query query = getSession().createQuery("SELECT new com.netcracker.DAO.entity.ClientReviews(c,rev) from com.netcracker.DAO.entity.Client as c, com.netcracker.DAO.entity.Reserv as res, com.netcracker.DAO.entity.Reviews as rev where c.login = res.id_client and rev.id_reserv = res.id");
             List<ClientReviews> list = query.list();
             return (List<ClientReviews>) list;
         }catch (Exception ex){
             ex.printStackTrace();
-            throw new EntityNotFound("base is not responding");
+            throw new FatalError("base is not responding");
         }
     }
 

@@ -2,6 +2,8 @@ package com.netcracker.DAO.entity;
 
 
 
+import com.netcracker.bakend.Validation;
+
 import javax.persistence.*;
 
 /**
@@ -108,6 +110,15 @@ public class Client {
         this.email = email;
     }
 
+    public void parseString(){
+        this.login = Validation.parseStirng(login);
+        this.password = Validation.parseStirng(password);
+        this.surname = Validation.parseStirng(surname);
+        this.name = Validation.parseStirng(name);
+        this.middle_name = Validation.parseStirng(middle_name);
+        this.sex = Validation.parseStirng(sex);
+        this.email = Validation.parseStirng(email);
+    }
     @Override
     public String toString() {
         return "Client{" +

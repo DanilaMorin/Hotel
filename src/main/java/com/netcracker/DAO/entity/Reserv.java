@@ -1,5 +1,7 @@
 package com.netcracker.DAO.entity;
 
+import com.netcracker.bakend.Validation;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
@@ -104,6 +106,10 @@ public class Reserv  {
         this.id_client = id_client;
     }
 
+    public void parseString(){
+        this.id_org = Validation.parseStirng(id_org);
+        this.id_client = Validation.parseStirng(id_client);
+    }
     @Override
     public String toString() {
         return "Reserv{" +

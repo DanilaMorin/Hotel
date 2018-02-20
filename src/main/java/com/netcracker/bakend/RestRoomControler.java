@@ -2,6 +2,7 @@ package com.netcracker.bakend;
 
 import com.netcracker.DAO.entity.Room;
 import com.netcracker.exception.EntityNotFound;
+import com.netcracker.exception.ErrorValidation;
 import com.netcracker.exception.FatalError;
 import com.netcracker.services.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -40,10 +43,21 @@ public class RestRoomControler {
 
     @PostMapping("/free")
 
-   ResponseEntity getListRoom(String date){
+   ResponseEntity getListRoom(String sdate){
         List<Room> list = null;
         try {
-            list = roomService.getListRoom(date);
+            SimpleDateFormat format = new SimpleDateFormat();
+            format.applyPattern("yyyy-MM-dd");
+
+            Date date = new Date();
+            java.sql.Date datesql = new java.sql.Date(format.parse(format.format(date)).getTime());
+
+            Date date1 = new Date(format.parse(sdate).getTime());
+            java.sql.Date datesql1 = new java.sql.Date(format.parse(format.format(date1)).getTime());
+
+            if ( datesql.getTime() <= datesql1.getTime()) {
+                list = roomService.getListRoom(sdate);
+            }else throw new ErrorValidation("Invalid date");
             return new ResponseEntity<List<Room>>(list,HttpStatus.OK);
         } catch (com.netcracker.exception.ParseException e) {
             e.printStackTrace();
@@ -51,6 +65,12 @@ public class RestRoomControler {
         } catch (FatalError fatalError) {
             fatalError.printStackTrace();
             return new ResponseEntity<String>(fatalError.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (ErrorValidation errorValidation) {
+            errorValidation.printStackTrace();
+            return new ResponseEntity<String>(errorValidation.getMessage(),HttpStatus.NOT_FOUND);
+        }catch (ParseException e) {
+            e.printStackTrace();
+            return new ResponseEntity<String>("Parse error", HttpStatus.NOT_FOUND);
         }
     }
 

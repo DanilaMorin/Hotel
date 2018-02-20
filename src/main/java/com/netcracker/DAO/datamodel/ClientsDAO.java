@@ -16,7 +16,7 @@ public interface ClientsDAO {
     boolean addClient(Client client);
     List<Client> getClient() throws FatalError;
     Client getClientById(String login) throws EntityNotFound, FatalError;
-    List<ClientReviews> getClientReviews() throws EntityNotFound;
+    List<ClientReviews> getClientReviews() throws  FatalError;
     Double billForServices(String login)  throws  EntityNotFound, FatalError;
     List<Reviews> getRevByid(String login) throws FatalError;
     List<ServicePrice> typesOfServices(String login) throws FatalError;

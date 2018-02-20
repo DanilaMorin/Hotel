@@ -43,7 +43,7 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public List<ClientReviews> getClientReviews() throws EntityNotFound {
+    public List<ClientReviews> getClientReviews() throws  FatalError {
         List<ClientReviews> list;
             list = clientsDAO.getClientReviews();
         return list;

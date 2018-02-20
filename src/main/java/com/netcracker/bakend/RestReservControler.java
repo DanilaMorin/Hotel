@@ -1,6 +1,7 @@
 package com.netcracker.bakend;
 
 import com.netcracker.exception.EntityNotFound;
+import com.netcracker.exception.ErrorValidation;
 import com.netcracker.exception.FatalError;
 import com.netcracker.services.ReservService;
 import com.netcracker.DAO.entity.Reserv;
@@ -10,6 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -51,17 +55,33 @@ public class RestReservControler {
     }
 
     @PostMapping("/add")
-    ResponseEntity addReserv(Reserv reserv)
+    ResponseEntity addReserv(@RequestBody Reserv reserv)
     {
         try {
-        reservService.saveReserv(reserv);
-        return new ResponseEntity<Reserv>(reserv,HttpStatus.OK);
-    } catch (DataIntegrityViolationException ex) {
-        ex.printStackTrace();
-        return new ResponseEntity<String>("Such an object already exists", HttpStatus.NOT_FOUND);
-    } catch (Exception ex) {
-        ex.printStackTrace();
-        return new ResponseEntity<String>("Not Added", HttpStatus.INTERNAL_SERVER_ERROR);
+
+            reserv.parseString();
+            SimpleDateFormat format = new SimpleDateFormat();
+            format.applyPattern("yyyy-MM-dd");
+            Date date = new Date();
+            java.sql.Date date1 = new java.sql.Date(format.parse(format.format(date)).getTime());
+
+            if ((reserv.getArrival_date().getTime() <= reserv.getDate_of_departure().getTime()) & (reserv.getArrival_date().getTime() >= date1.getTime())){
+                reservService.saveReserv(reserv);
+            }else throw new ErrorValidation("error with dates");
+
+            return new ResponseEntity<Reserv>(reserv,HttpStatus.OK);
+        } catch (DataIntegrityViolationException ex) {
+                     ex.printStackTrace();
+            return new ResponseEntity<String>("Such an object already exists", HttpStatus.NOT_FOUND);
+        }  catch (ErrorValidation ex){
+            return new ResponseEntity<String>(ex.getMessage(),HttpStatus.NOT_FOUND);
+
+        }catch (ParseException e) {
+            e.printStackTrace();
+            return new ResponseEntity<String>("Parse error", HttpStatus.NOT_FOUND);
+        }catch (Exception ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<String>("Not Added", HttpStatus.INTERNAL_SERVER_ERROR);
     }
     }
 

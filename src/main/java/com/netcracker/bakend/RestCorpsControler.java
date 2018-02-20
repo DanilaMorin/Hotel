@@ -35,6 +35,7 @@ public class RestCorpsControler {
     @PostMapping(value = "/add",consumes = "application/json")
     ResponseEntity setAdditServicesServie(@RequestBody Corps corps) {
         try {
+            corps.setName(Validation.parseStirng(corps.getName()));
             Boolean b = corpsService.saveCorps(corps);
             return new ResponseEntity<Boolean>(true,HttpStatus.OK);
         } catch (DataIntegrityViolationException ex) {

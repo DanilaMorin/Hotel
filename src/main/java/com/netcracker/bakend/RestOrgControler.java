@@ -41,6 +41,7 @@ public class RestOrgControler {
     @PostMapping("/add")
     ResponseEntity setOrg(@RequestBody Organization org){
      try {
+
         service.saveOrg(org);
         return new ResponseEntity<Boolean>(true,HttpStatus.OK);
     } catch (DataIntegrityViolationException ex) {
