@@ -7,28 +7,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="26cd5165-bebd-45c9-9a23-629f1af6cae6" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/netcracker/bakend/Validation.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/netcracker/exception/ErrorValidation.java" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/netcracker/DAO/datamodel/ClientsDAO.class" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/netcracker/DAO/implementation/ClientsDAOImpl.class" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/netcracker/bakend/RestClientControler.class" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/netcracker/DAO/datamodel/ClientsDAO.java" afterPath="$PROJECT_DIR$/src/main/java/com/netcracker/DAO/datamodel/ClientsDAO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/netcracker/DAO/entity/Client.java" afterPath="$PROJECT_DIR$/src/main/java/com/netcracker/DAO/entity/Client.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/netcracker/DAO/entity/Organization.java" afterPath="$PROJECT_DIR$/src/main/java/com/netcracker/DAO/entity/Organization.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/netcracker/DAO/entity/Reserv.java" afterPath="$PROJECT_DIR$/src/main/java/com/netcracker/DAO/entity/Reserv.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/netcracker/DAO/implementation/ClientsDAOImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/netcracker/DAO/implementation/ClientsDAOImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/netcracker/bakend/RestAdditServControler.java" afterPath="$PROJECT_DIR$/src/main/java/com/netcracker/bakend/RestAdditServControler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/netcracker/bakend/RestClientControler.java" afterPath="$PROJECT_DIR$/src/main/java/com/netcracker/bakend/RestClientControler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/netcracker/bakend/RestCorpsControler.java" afterPath="$PROJECT_DIR$/src/main/java/com/netcracker/bakend/RestCorpsControler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/netcracker/bakend/RestOrgControler.java" afterPath="$PROJECT_DIR$/src/main/java/com/netcracker/bakend/RestOrgControler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/netcracker/bakend/RestReservControler.java" afterPath="$PROJECT_DIR$/src/main/java/com/netcracker/bakend/RestReservControler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/netcracker/bakend/RestReviewsDAO.java" afterPath="$PROJECT_DIR$/src/main/java/com/netcracker/bakend/RestReviewsDAO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/netcracker/bakend/RestRoomControler.java" afterPath="$PROJECT_DIR$/src/main/java/com/netcracker/bakend/RestRoomControler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/netcracker/bakend/RestServiceControler.java" afterPath="$PROJECT_DIR$/src/main/java/com/netcracker/bakend/RestServiceControler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/netcracker/bakend/RestTest.java" afterPath="$PROJECT_DIR$/src/main/java/com/netcracker/bakend/RestTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/netcracker/services/ClientService.java" afterPath="$PROJECT_DIR$/src/main/java/com/netcracker/services/ClientService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/netcracker/services/servicesImpl/ClientServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/netcracker/services/servicesImpl/ClientServiceImpl.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -3000,7 +2982,7 @@
       <workItem from="1518429379327" duration="13417000" />
       <workItem from="1518711371274" duration="11536000" />
       <workItem from="1518925538240" duration="1502000" />
-      <workItem from="1519133146625" duration="17297000" />
+      <workItem from="1519133146625" duration="17312000" />
     </task>
     <task id="LOCAL-00001" summary="Test Commit">
       <created>1516649550771</created>
@@ -3093,11 +3075,18 @@
       <option name="project" value="LOCAL" />
       <updated>1519145070270</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Hibernate7Exception&#10;">
+      <created>1519157142354</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1519157142354</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="195111000" />
+    <option name="totallyTimeSpent" value="195126000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
