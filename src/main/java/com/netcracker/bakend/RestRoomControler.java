@@ -55,7 +55,7 @@ public class RestRoomControler {
     }
 
     @PostMapping("/add")
-    ResponseEntity saveRoom(Room room){
+    ResponseEntity saveRoom(@RequestBody Room room){
        try {
             roomService.saveRoom(room);
             return new ResponseEntity<String>("Uploaded", HttpStatus.OK);

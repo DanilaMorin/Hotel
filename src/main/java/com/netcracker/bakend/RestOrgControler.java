@@ -39,7 +39,7 @@ public class RestOrgControler {
     }
 
     @PostMapping("/add")
-    ResponseEntity setOrg(Organization org){
+    ResponseEntity setOrg(@RequestBody Organization org){
      try {
         service.saveOrg(org);
         return new ResponseEntity<Boolean>(true,HttpStatus.OK);

@@ -52,7 +52,7 @@ public class RestValueServiceControler {
 
     }
     @PostMapping("/add")
-    ResponseEntity<String> addValueService(ValueService valueRoom)
+    ResponseEntity<String> addValueService(@RequestBody ValueService valueRoom)
     {
         try {
         service.saveValueService(valueRoom);

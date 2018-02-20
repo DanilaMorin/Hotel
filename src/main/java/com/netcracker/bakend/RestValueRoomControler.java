@@ -48,7 +48,7 @@ public class RestValueRoomControler {
 
     }
     @PostMapping("/add")
-    ResponseEntity addValueRoom(ValueRoom valueRoom)
+    ResponseEntity addValueRoom(@RequestBody ValueRoom valueRoom)
     {
         try {
             service.saveValueRoom(valueRoom);

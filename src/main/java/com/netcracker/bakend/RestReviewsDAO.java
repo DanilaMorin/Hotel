@@ -22,7 +22,7 @@ public class RestReviewsDAO {
     @Autowired
     ReviewsService reviewsService;
     @PostMapping("/add")
-    ResponseEntity saveReviews(Reviews reviews){
+    ResponseEntity saveReviews(@RequestBody Reviews reviews){
         try {
             reviewsService.saveReviews(reviews);
             return new ResponseEntity<String>("Uploaded", HttpStatus.OK);

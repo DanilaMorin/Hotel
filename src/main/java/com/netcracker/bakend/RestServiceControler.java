@@ -52,7 +52,7 @@ public class RestServiceControler {
 
     }
     @PostMapping("/add")
-   ResponseEntity addReserv(Service service)
+   ResponseEntity addReserv(@RequestBody Service service)
     {
         try {
             serviceService.saveService(service);
