@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.sql.DataSource;
 
@@ -50,10 +51,26 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-                .antMatchers("/**").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/**").access("hasRole('ROLE_ADMIN')").and().formLogin().loginPage("/login1").permitAll().and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll()
                 //.antMatchers("/confidential/**").access("hasRole('ROLE_SUPERADMIN')")
                 .and().formLogin().defaultSuccessUrl("/hello", false);
-
+//        http
+//                .authorizeRequests()
+//                .antMatchers("/readme.txt", "/css/*").permitAll()
+//                .anyRequest().authenticated()
+//                .and()
+//                .formLogin().loginPage("/login").permitAll()
+//                .and()
+//                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll();
+//        http.authorizeRequests()
+//                .antMatchers("/**").hasRole("USER")
+//                .and()
+//                .formLogin()
+//                .loginPage("/login")
+//                .usernameParameter("username")
+//                .passwordParameter("password")
+//                .and()
+//                .csrf().disable();
     }
 
     @Bean

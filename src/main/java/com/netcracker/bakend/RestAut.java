@@ -1,12 +1,16 @@
 package com.netcracker.bakend;
 
+import com.netcracker.config.ReadHtml;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletResponseWrapper;
 
 /**
  * Created by 12345 on 22.02.2018.
@@ -49,4 +53,22 @@ public class RestAut {
 //        return model;
 //
 //    }
+@RequestMapping(value = "login1")//,produces ="text/html")
+public ResponseEntity<String>  getLogin(@RequestParam(value = "error", required = false) String error,
+                               @RequestParam(value = "logout", required = false) String logout,
+                               Model model) {
+    model.addAttribute("error", error != null);
+    model.addAttribute("logout", logout != null);
+    //return "login";
+    ModelAndView model1 =  new ModelAndView();
+    model1.setViewName("login");
+    String str = new ReadHtml("C:\\Users\\12345\\IdeaProjects\\Hotel1.2\\src\\main\\webapp\\login.html").getS();
+    System.out.println(str);;
+    ResponseEntity<String> responseEntity = new ResponseEntity<String>(str,HttpStatus.OK);
+
+    //HttpServletResponse resp = new HttpServletResponseWrapper();
+    return   responseEntity ;
+    }
+
+
 }
