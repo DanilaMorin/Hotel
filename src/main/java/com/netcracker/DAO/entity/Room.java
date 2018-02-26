@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "rooms")
 public class Room {
-    @Id
+    @Id()
     @GeneratedValue
     @AttributeOverrides(value = {
             @AttributeOverride(name = "id_room", column = @Column(name = "id_room")),
@@ -16,7 +16,7 @@ public class Room {
 
     })
 
-    private int id_rooms ;
+    private int id_room ;
     @Column(name = "id_corps")
     private int id_corps ;
     @Column(name = "number_of_people")
@@ -25,7 +25,7 @@ public class Room {
     private int floor ;
 
     @ManyToOne (optional=false, cascade=CascadeType.ALL)
-    @JoinColumn (name = "id_room")
+    @JoinColumn (name = "id_room", insertable = false, updatable = false)
 
     private Reserv reserv;
 
@@ -37,11 +37,18 @@ public class Room {
     }
 
     public Room(int id_rooms,int id_corps, int number_of_people, int floor ) {
-        this.id_rooms = id_rooms;
+        this.id_room = id_rooms;
         this.id_corps = id_corps;
         this.number_of_people = number_of_people;
         this.floor = floor;
         this.reserv = null;
+    }
+    public Room(int id_rooms,int id_corps, int number_of_people, int floor, Reserv reserv ) {
+        this.id_room = id_rooms;
+        this.id_corps = id_corps;
+        this.number_of_people = number_of_people;
+        this.floor = floor;
+        this.reserv = reserv;
     }
 
 
@@ -49,11 +56,11 @@ public class Room {
     }
 
     public int getId_room() {
-        return id_rooms;
+        return id_room;
     }
 
     public void setId_room(int id_room) {
-        this.id_rooms = id_room;
+        this.id_room = id_room;
     }
 
     public int getId_corps() {
@@ -91,7 +98,7 @@ public class Room {
     @Override
     public String toString() {
         return "Room{" +
-                "id_room=" + id_rooms +
+                "id_room=" + id_room +
                 ", id_corps=" + id_corps +
                 ", number_of_people=" + number_of_people +
                 ", floor=" + floor +

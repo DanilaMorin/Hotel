@@ -38,7 +38,7 @@ public class RoomDAOImpl extends AbstractDAO implements RoomDAO {
             format.applyPattern("yyyy-MM-dd");
             Date date = new Date();
             java.sql.Date date1 = new java.sql.Date(format.parse(format.format(date)).getTime());
-            Query query = getSession().createQuery("SELECT count (room.id_corps) from Room as room left join room.reserv  as res where NOT (res.arrival_date < :date and :date1 < res.date_of_departure) or (res.id is null)");
+            Query query = getSession().createQuery("SELECT count (room.id_corps) from Room as room left join room.reserv  as res where (res.arrival_date > :date or :date1 > res.date_of_departure or (res.id is null))and ((room.id_corps = res.id_corp) or (res.id_corp = null))");
             query.setParameter("date", date1);
             query.setParameter("date1", date1);
             List list = query.list();
@@ -56,17 +56,22 @@ public class RoomDAOImpl extends AbstractDAO implements RoomDAO {
         public List<Room> getListRoom (String date) throws com.netcracker.exception.ParseException, FatalError {
             List<Room> list = null;
             try {
-                Query query = getSession().createQuery("SELECT new Room(res.id_room,room.id_corps,room.number_of_people,room.floor) from Room as room left join room.reserv  as res where  NOT (res.arrival_date < :date and :date1 < res.date_of_departure) or (res.id is null)");
+                Query query = getSession().createQuery("SELECT new com.netcracker.DAO.entity.Room(res.id_room,res.id_corp,room.number_of_people, room.floor) from com.netcracker.DAO.entity.Room as room join room.reserv  as res where  NOT (res.arrival_date < :date and :date1 < res.date_of_departure )  and (res.arrival_date < :date2 and :date3 < res.date_of_departure ) and (room.id_corps = res.id_corp)"); //and  not(res.id is null)
                 SimpleDateFormat format = new SimpleDateFormat();
                 format.applyPattern("yyyy-MM-dd");
                 java.sql.Date date1 = new java.sql.Date(format.parse(date).getTime());
+                Date date2 = new Date();
+                java.sql.Date date22 = new java.sql.Date(format.parse(format.format(date2)).getTime());
                 query.setParameter("date",date1);
                 query.setParameter("date1", date1);
+                query.setParameter("date2", date22);
+                query.setParameter("date3", date22);
                 list = (List<Room> ) query.list();
                 return list;
         }catch (ParseException ex){
             throw new com.netcracker.exception.ParseException("not a valid date format");
         }catch (Exception ex){
+            ex.printStackTrace();
             throw new FatalError("base is not responding");
     }
         }

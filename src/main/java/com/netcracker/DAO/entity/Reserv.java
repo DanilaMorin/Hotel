@@ -50,6 +50,16 @@ public class Reserv  {
         this.tenants = tenants;
     }
 
+    public Reserv(Date arrival_date, Date date_of_departure, int id_room, int id_corp, String id_org, String id_client) {
+        this.arrival_date = arrival_date;
+        this.date_of_departure = date_of_departure;
+        this.id_room = id_room;
+        this.id_corp = id_corp;
+        this.id_org = id_org;
+        this.id_client = id_client;
+        this.tenants = null;
+    }
+
     public int getId() {
         return id;
     }

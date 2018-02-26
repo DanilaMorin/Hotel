@@ -55,7 +55,7 @@ public class RestRoomControler {
             Date date1 = new Date(format.parse(sdate).getTime());
             java.sql.Date datesql1 = new java.sql.Date(format.parse(format.format(date1)).getTime());
 
-            if ( datesql.getTime() <= datesql1.getTime()) {
+            if ( datesql.getTime() >= datesql1.getTime()) {
                 list = roomService.getListRoom(sdate);
             }else throw new ErrorValidation("Invalid date");
             return new ResponseEntity<List<Room>>(list,HttpStatus.OK);
