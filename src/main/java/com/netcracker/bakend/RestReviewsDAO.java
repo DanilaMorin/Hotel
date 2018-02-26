@@ -16,7 +16,7 @@ import java.util.List;
  * Created by user on 04.02.2018.
  */
 @RestController
-@RequestMapping("/reviews")
+@RequestMapping("rest/reviews")
 public class RestReviewsDAO {
 
     @Autowired

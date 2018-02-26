@@ -15,7 +15,7 @@ import java.util.List;
  * Created by 12345 on 30.01.2018.
  */
 @RestController
-@RequestMapping("/valRoom")
+@RequestMapping("rest/valRoom")
 public class RestValueRoomControler {
 
     @Autowired

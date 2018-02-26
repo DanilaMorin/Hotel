@@ -15,41 +15,26 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
  * Created by 12345 on 22.02.2018.
  */
 @Configuration
-//@EnableWebMvc
 @ComponentScan({ "com" })
-//@Import({ AppSecurityConfig.class })
 
 
 public class WebConfig {
-        //extends WebMvcConfigurerAdapter {
-//    @Override
-//    public void addViewControllers(ViewControllerRegistry registry) {
-//        super.addViewControllers(registry);
-//        registry.addViewController("/").setViewName("index");
-//    }
-
-
 
     @Bean
     public InternalResourceViewResolver viewResolver() {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
         viewResolver.setViewClass(JstlView.class);
-        //viewResolver.setViewClass(InternalResourceViewResolver.class);
-
         viewResolver.setPrefix("/");
-       // viewResolver.setSuffix(".jsp");
          viewResolver.setSuffix(".html");
         return viewResolver;
-        //WEB-INF/views/ WEB-INF/views/login.jsp
     }
     @Bean
     public ServletContextTemplateResolver templateResolver(){
         ServletContextTemplateResolver servletContextTemplateResolver = new ServletContextTemplateResolver();
         servletContextTemplateResolver.setPrefix("/");
         servletContextTemplateResolver.setSuffix(".html");
-        //servletContextTemplateResolver.setSuffix(".jsp");
         servletContextTemplateResolver.setTemplateMode("HTML5");
-        //servletContextTemplateResolver.setCacheable(false);
+        servletContextTemplateResolver.setCacheable(false);
         return servletContextTemplateResolver;
     }
 }

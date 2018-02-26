@@ -17,7 +17,7 @@ import java.util.List;
  * Created by 12345 on 31.01.2018.
  */
 @RestController
-@RequestMapping("valServ")
+@RequestMapping("rest/valServ")
 public class RestValueServiceControler {
 
     @Autowired

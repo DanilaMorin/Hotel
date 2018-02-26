@@ -16,7 +16,7 @@ import java.util.List;
  * Created by 12345 on 30.01.2018.
  */
 @RestController
-@RequestMapping("/org")
+@RequestMapping("rest/org")
 public class RestOrgControler {
 
     @Autowired

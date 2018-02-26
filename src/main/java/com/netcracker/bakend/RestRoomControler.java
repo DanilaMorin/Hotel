@@ -21,7 +21,7 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("/room")
+@RequestMapping("rest/room")
 public class RestRoomControler {
     @Autowired
     RoomService roomService;

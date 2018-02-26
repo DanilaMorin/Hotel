@@ -51,26 +51,9 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-                .antMatchers("/**").access("hasRole('ROLE_ADMIN')").and().formLogin().loginPage("/login1").permitAll().and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll()
-                //.antMatchers("/confidential/**").access("hasRole('ROLE_SUPERADMIN')")
-                .and().formLogin().defaultSuccessUrl("/hello", false);
-//        http
-//                .authorizeRequests()
-//                .antMatchers("/readme.txt", "/css/*").permitAll()
-//                .anyRequest().authenticated()
-//                .and()
-//                .formLogin().loginPage("/login").permitAll()
-//                .and()
-//                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll();
-//        http.authorizeRequests()
-//                .antMatchers("/**").hasRole("USER")
-//                .and()
-//                .formLogin()
-//                .loginPage("/login")
-//                .usernameParameter("username")
-//                .passwordParameter("password")
-//                .and()
-//                .csrf().disable();
+                .antMatchers("/rest/**").access("hasRole('ROLE_ADMIN')")
+                .and().formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/swagger-ui.html", true)
+                .and().csrf().disable();
     }
 
     @Bean

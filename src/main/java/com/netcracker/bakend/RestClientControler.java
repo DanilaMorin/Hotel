@@ -17,7 +17,7 @@ import java.util.Map;
 
 
 @RestController()
-@RequestMapping("/client")
+@RequestMapping("rest/client")
 public class RestClientControler {
 
 
@@ -53,6 +53,8 @@ public class RestClientControler {
             return new ResponseEntity<String>("Not Added",HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+
     @PostMapping("/dataByID")
     ResponseEntity getData(String login) {
         try {

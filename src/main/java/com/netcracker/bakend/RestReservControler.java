@@ -20,7 +20,7 @@ import java.util.List;
  * Created by 12345 on 29.01.2018.
  */
 @RestController
-@RequestMapping("/reserv")
+@RequestMapping("rest/reserv")
 public class RestReservControler {
     @Autowired
     ReservService reservService;

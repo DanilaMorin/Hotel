@@ -25,7 +25,7 @@ import java.util.logging.Logger;
  * Created by 12345 on 30.01.2018.
  */
 @RestController()
-@RequestMapping(value = "/additserv")
+@RequestMapping(value = "rest/additserv")
 
 public class RestAdditServControler {
 

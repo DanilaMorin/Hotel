@@ -1,9 +1,15 @@
 package com.netcracker.bakend;
 
+import com.netcracker.DAO.entity.Client;
 import com.netcracker.config.ReadHtml;
+import com.netcracker.services.ClientService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,55 +25,41 @@ import javax.servlet.http.HttpServletResponseWrapper;
 @RestController
 public class RestAut {
 
+    @Autowired
+    ClientService clientService;
     @RequestMapping(value = {"/"})
     public ModelAndView welcomePage() {
-//        ModelAndView model = new ModelAndView();
-//        model.addObject("title", "Spring Security Tutorial");
-//        model.addObject("message", "Welcome Page !");
-//        model.setViewName("helloworld");
-//        return model;
         ModelAndView model = new ModelAndView();
         model.setViewName("hello");
         return model;
     }
 
-//    @RequestMapping(value = "/protected**", method = RequestMethod.GET)
-//    public ResponseEntity protectedPage() {
-//
-//        //        ModelAndView model = new ModelAndView();
-//        //        model.addObject("title", "Spring Security 3.2.4 Hello World Tutorial");
-//        //        model.addObject("message", "This is protected page - Only for Admin Users!");
-//        //        model.setViewName("protected");
-//        //        return model;
-//            return new ResponseEntity<Boolean>(true, HttpStatus.OK);
-//    }
-
-//    @RequestMapping(value = "/confidential**", method = RequestMethod.GET)
-//    public ModelAndView adminPage() {
-//
-//        ModelAndView model = new ModelAndView();
-//        model.addObject("title", "Spring Security 3.2.4 Hello World Tutorial");
-//        model.addObject("message", "This is confidential page - Need Super Admin Role!");
-//        model.setViewName("protected");
-//
-//        return model;
-//
-//    }
-@RequestMapping(value = "login1")//,produces ="text/html")
-public ResponseEntity<String>  getLogin(@RequestParam(value = "error", required = false) String error,
+@RequestMapping(value = "/login")
+public Model getLogin(@RequestParam(value = "error", required = false) String error,
                                @RequestParam(value = "logout", required = false) String logout,
                                Model model) {
-    model.addAttribute("error", error != null);
-    model.addAttribute("logout", logout != null);
-    //return "login";
-    ModelAndView model1 =  new ModelAndView();
-    model1.setViewName("login");
-    String str = new ReadHtml("C:\\Users\\12345\\IdeaProjects\\Hotel1.2\\src\\main\\webapp\\login.html").getS();
-    System.out.println(str);;
-    ResponseEntity<String> responseEntity = new ResponseEntity<String>(str,HttpStatus.OK);
+       model.addAttribute("error", error != null);
+       model.addAttribute("logout", logout != null);
+       return model;
 
-    //HttpServletResponse resp = new HttpServletResponseWrapper();
-    return   responseEntity ;
+    }
+
+    @PostMapping(value = "/client/add")
+    ResponseEntity setAdditServicesServie(String login, String password, String surname, String name, String middle_name, String sex, String email){
+        try {
+            Client client = new Client(login, password, surname, name, middle_name, sex, email);
+            client.parseString();
+            clientService.addClient(client);
+            return new ResponseEntity<String>("Uploaded", HttpStatus.OK);
+        }
+        catch (DataIntegrityViolationException ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<String>("Such an object already exists", HttpStatus.NOT_FOUND);
+        }catch (Exception ex){
+            System.out.println("Error");
+            ex.printStackTrace();
+            return new ResponseEntity<String>("Not Added",HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 
