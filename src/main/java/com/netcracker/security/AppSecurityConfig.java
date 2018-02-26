@@ -1,4 +1,4 @@
-package com.netcracker.config;
+package com.netcracker.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
