@@ -3,14 +3,15 @@ package com.netcracker.services.servicesImpl;
 import com.netcracker.DAO.datamodel.RoomDAO;
 import com.netcracker.DAO.entity.Client;
 import com.netcracker.DAO.entity.Room;
+import com.netcracker.DAO.entity.RoomCast;
 import com.netcracker.exception.EntityNotFound;
 import com.netcracker.exception.FatalError;
+import com.netcracker.exception.MyParseException;
 import com.netcracker.services.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -24,21 +25,21 @@ public class RoomServicesImpl implements RoomService {
 
 
     @Override
-    public Integer getRoomFree() throws  com.netcracker.exception.ParseException, FatalError {
-        Integer count = 0;
+    public int getRoomFree() throws MyParseException, FatalError {
+        int count;
             count = roomDAO.getRoomFree();
             return count;
     }
 
     @Override
-    public List<Room> getListRoom(String date) throws com.netcracker.exception.ParseException, FatalError {
+    public List<Room> getListRoom(String date) throws MyParseException, FatalError {
             List<Room> list;
             list  = roomDAO.getListRoom(date);
         return list;
     }
 
     @Override
-    public void saveRoom(Room room) {
+    public void saveRoom(RoomCast room) {
         roomDAO.saveRoom(room);
     }
 
@@ -48,7 +49,7 @@ public class RoomServicesImpl implements RoomService {
     }
 
     @Override
-    public Room findRoomById(int id_room, int id_corp) throws FatalError, EntityNotFound {
+    public RoomCast findRoomById(int id_room, int id_corp) throws FatalError, EntityNotFound {
         return roomDAO.findRoomById(id_room,id_corp);
     }
 
@@ -58,7 +59,7 @@ public class RoomServicesImpl implements RoomService {
     }
 
     @Override
-    public List<Client> certainTime(String data, String data1) throws com.netcracker.exception.ParseException, FatalError {
+    public List<Client> certainTime(String data, String data1) throws MyParseException, FatalError {
         List<Client> list;
             list = roomDAO.certainTime(data, data1);
         return list;

@@ -6,19 +6,12 @@ import com.netcracker.DAO.datamodel.ClientsDAO;
 import com.netcracker.DAO.entity.*;
 import com.netcracker.exception.EntityNotFound;
 import com.netcracker.exception.FatalError;
-import com.netcracker.exception.TraceException;
 import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
-import org.postgresql.util.PSQLException;
 import org.springframework.stereotype.Repository;
 
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Created by user on 15.01.2018.
@@ -71,6 +64,7 @@ public class ClientsDAOImpl extends AbstractDAO implements ClientsDAO {
             return client;
 
         }catch (EntityNotFound ex){
+            ex.printStackTrace();
             throw new EntityNotFound(ex.getMessage());
         }
         catch (Exception ex){
@@ -115,12 +109,6 @@ public class ClientsDAOImpl extends AbstractDAO implements ClientsDAO {
 
     @Override
     public List<ServicePrice> typesOfServices(String login) throws FatalError {
-
-
-//        preparedStatement = connection.prepareStatement("SELECT service.name , price\n" +
-//                "  FROM public.service, public.clients, public.reserv as res, public.additional_services as add_serv,  public.value_service as val_serv\n" +
-//                "  WHERE res.id_client = clients.login and res.id = add_serv.id_reserv and add_serv.id_service = val_serv.id_service and val_serv.id_corp = res.id_corp and res.id_client = ? and service.id = val_serv.id_service" +
-//                "  ;");
 
         try {
             List list;

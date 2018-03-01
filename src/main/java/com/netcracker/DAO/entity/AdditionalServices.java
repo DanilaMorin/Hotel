@@ -2,9 +2,6 @@ package com.netcracker.DAO.entity;
 
 import javax.persistence.*;
 
-/**
- * Created by 12345 on 30.01.2018.
- */
 
 @Entity
 @Table(name = "additional_services")

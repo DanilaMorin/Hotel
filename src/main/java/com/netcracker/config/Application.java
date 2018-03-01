@@ -3,7 +3,6 @@ package com.netcracker.config;
 /**
  * Created by 12345 on 17.01.2018.
  */
-import java.util.Arrays;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -12,13 +11,13 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
+import java.util.Arrays;
+
 @SpringBootApplication
 @ComponentScan(basePackages = "com")
 public class Application {
 
     public static void main(String[] args) {
-//        AbstractApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
-//        ReservService contactService = (ReservService) context.getBean("reservService");
         SpringApplication.run(Application.class, args);
     }
 
@@ -37,35 +36,7 @@ public class Application {
         };
 
     }
-//    @Bean
-//    public ReservService getReservService(ReservService reservService){
-//        ReservService service = new ReservServiceImpl();
-//        return service;
-//
-//    }
 
-//    @Bean
-//     public  SampleApplication getSampleApplication(SampleApplication sampleApplication){
-//        SampleApplication sample= new SampleApplication();
-//        return sample;
-//    }
-
-//
-
-//    @Bean
-//
-//    public AdditServicesServie getAdditServicesServie(AdditServicesServie addServService){
-//        AdditServicesServie servicesServie = new AdditServicesServieImpl();
-//        return servicesServie;
-//
-//    }
-//
-//    @Bean
-//    public CorpsService getCorpService(CorpsService corpsService){
-//        CorpsService service = new CorpsServiceImpl();
-//        return service;
-//
-//    }
 
 
 

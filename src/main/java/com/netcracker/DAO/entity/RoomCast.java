@@ -1,17 +1,13 @@
 package com.netcracker.DAO.entity;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import org.omg.CORBA.ServerRequest;
-
 import javax.persistence.*;
 
 /**
- * Created by 12345 on 17.01.2018.
+ * Created by 12345 on 02.03.2018.
  */
 @Entity
 @Table(name = "rooms")
-public class Room {
+public class RoomCast {
     @Id()
     @AttributeOverrides(value = {
             @AttributeOverride(name = "id_room", column = @Column(name = "id_room")),
@@ -19,45 +15,24 @@ public class Room {
 
     })
     @Column(name = "id_room")
-    private int id_room ;
+    private int id_room;
     @Column(name = "id_corps")
-    private int id_corps ;
+    private int id_corps;
     @Column(name = "number_of_people")
     private int number_of_people;
     @Column(name = "floor")
-    private int floor ;
+    private int floor;
 
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = ServerRequest.class)
-    @ManyToOne (optional=false, cascade=CascadeType.ALL)
-    @JoinColumns({
-            @JoinColumn(name="id_room", referencedColumnName="id_room", insertable = false, updatable = false),
-            @JoinColumn(name="id_corps", referencedColumnName="id_corp", insertable = false, updatable = false)
-    })
-    private Reserv reserv;
 
-    public Room(int id_corps, int number_of_people, int floor, Reserv reserv ) {
-        this.id_corps = id_corps;
-        this.number_of_people = number_of_people;
-        this.floor = floor;
-        this.reserv = reserv;
-    }
-
-    public Room(int id_rooms,int id_corps, int number_of_people, int floor ) {
+    public RoomCast(int id_rooms, int id_corps, int number_of_people, int floor) {
         this.id_room = id_rooms;
         this.id_corps = id_corps;
         this.number_of_people = number_of_people;
         this.floor = floor;
-        this.reserv = null;
-    }
-    public Room(int id_rooms,int id_corps, int number_of_people, int floor, Reserv reserv ) {
-        this.id_room = id_rooms;
-        this.id_corps = id_corps;
-        this.number_of_people = number_of_people;
-        this.floor = floor;
-        this.reserv = reserv;
     }
 
-    public Room() {
+
+    public RoomCast() {
     }
 
     public int getId_room() {
@@ -92,13 +67,6 @@ public class Room {
         this.floor = floor;
     }
 
-    public Reserv getReserv() {
-        return reserv;
-    }
-
-    public void setReserv(Reserv reserv) {
-        this.reserv = reserv;
-    }
 
     @Override
     public String toString() {

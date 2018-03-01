@@ -1,11 +1,6 @@
 package com.netcracker.DAO.entity;
 
 
-/**
- * Created by user on 04.02.2018.
- */
-
-
 public class ClientReviews {
     private Client client;
     private Reviews reviews;

@@ -22,12 +22,14 @@ public class RestAut {
 
     @Autowired
     ClientService clientService;
+
     @RequestMapping(value = {"/"})
     public ModelAndView welcomePage() {
         ModelAndView model = new ModelAndView();
         model.setViewName("hello");
         return model;
     }
+
     @RequestMapping(value = {"/rest"})
     public ModelAndView getSwagger() {
         ModelAndView model = new ModelAndView();
@@ -36,31 +38,30 @@ public class RestAut {
         return model;
     }
 
-@RequestMapping(value = "/login")
-public Model getLogin(@RequestParam(value = "error", required = false) String error,
-                               @RequestParam(value = "logout", required = false) String logout,
-                               Model model) {
-       model.addAttribute("error", error != null);
-       model.addAttribute("logout", logout != null);
-       return model;
+    @RequestMapping(value = "/login")
+    public Model getLogin(@RequestParam(value = "error", required = false) String error,
+                          @RequestParam(value = "logout", required = false) String logout,
+                          Model model) {
+        model.addAttribute("error", error != null);
+        model.addAttribute("logout", logout != null);
+        return model;
 
     }
 
     @PostMapping(value = "/client/add")
-    ResponseEntity setAdditServicesServie(String login, String password, String surname, String name, String middle_name, String sex, String email){
+    ResponseEntity setAdditServicesServie(String login, String password, String surname, String name, String middle_name, String sex, String email) {
         try {
             Client client = new Client(login, password, surname, name, middle_name, sex, email);
             client.parseString();
             clientService.addClient(client);
             return new ResponseEntity<String>("Uploaded", HttpStatus.OK);
-        }
-        catch (DataIntegrityViolationException ex) {
+        } catch (DataIntegrityViolationException ex) {
             ex.printStackTrace();
             return new ResponseEntity<String>("Such an object already exists", HttpStatus.NOT_FOUND);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             System.out.println("Error");
             ex.printStackTrace();
-            return new ResponseEntity<String>("Not Added",HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<String>("Not Added", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

@@ -26,18 +26,18 @@ public class RestCorpsControler {
     ResponseEntity getListReserv() {
         try {
             List<Corps> list = corpsService.findAllCorps();
-            return new ResponseEntity<List<Corps>>(list,HttpStatus.OK);
+            return new ResponseEntity<List<Corps>>(list, HttpStatus.OK);
         } catch (EntityNotFound entityNotFound) {
             return new ResponseEntity<String>(entityNotFound.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @PostMapping(value = "/add",consumes = "application/json")
+    @PostMapping(value = "/add", consumes = "application/json")
     ResponseEntity setAdditServicesServie(@RequestBody Corps corps) {
         try {
             corps.setName(Validation.parseStirng(corps.getName()));
             Boolean b = corpsService.saveCorps(corps);
-            return new ResponseEntity<Boolean>(true,HttpStatus.OK);
+            return new ResponseEntity<Boolean>(true, HttpStatus.OK);
         } catch (DataIntegrityViolationException ex) {
             ex.printStackTrace();
             return new ResponseEntity<String>("Such an object already exists", HttpStatus.NOT_FOUND);
@@ -49,15 +49,15 @@ public class RestCorpsControler {
 
 
     @DeleteMapping("/del")
-    ResponseEntity deleteById(int id){
+    ResponseEntity deleteById(int id) {
         boolean b = false;
         try {
             b = corpsService.deleteCorpsById(id);
-            if(!b) return new ResponseEntity<Boolean>(false,HttpStatus.EXPECTATION_FAILED);
-            return new ResponseEntity<Boolean>(true,HttpStatus.OK);
+            if (!b) return new ResponseEntity<Boolean>(false, HttpStatus.EXPECTATION_FAILED);
+            return new ResponseEntity<Boolean>(true, HttpStatus.OK);
         } catch (FatalError fatalError) {
             fatalError.printStackTrace();
-            return new ResponseEntity<String>(fatalError.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<String>(fatalError.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 
         }
 
@@ -65,17 +65,17 @@ public class RestCorpsControler {
     }
 
     @PostMapping("/getAll")
-    ResponseEntity getById(int id){
+    ResponseEntity getById(int id) {
         try {
             Corps corps = null;
             corps = corpsService.findCorpsById(id);
-            return new ResponseEntity<Corps>(corps,HttpStatus.OK);
+            return new ResponseEntity<Corps>(corps, HttpStatus.OK);
         } catch (FatalError fatalError) {
             fatalError.printStackTrace();
-            return  new ResponseEntity<String>(fatalError.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<String>(fatalError.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (EntityNotFound entityNotFound) {
             entityNotFound.printStackTrace();
-            return new ResponseEntity<String>(entityNotFound.getMessage(),HttpStatus.NOT_FOUND);
+            return new ResponseEntity<String>(entityNotFound.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 

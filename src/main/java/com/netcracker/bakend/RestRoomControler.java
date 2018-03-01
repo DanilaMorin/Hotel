@@ -1,9 +1,11 @@
 package com.netcracker.bakend;
 
 import com.netcracker.DAO.entity.Room;
+import com.netcracker.DAO.entity.RoomCast;
 import com.netcracker.exception.EntityNotFound;
-import com.netcracker.exception.ErrorValidation;
 import com.netcracker.exception.FatalError;
+import com.netcracker.exception.MyParseException;
+import com.netcracker.exception.MyValidationException;
 import com.netcracker.services.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -28,11 +30,11 @@ public class RestRoomControler {
 
     @GetMapping("/free")
     ResponseEntity getRoomFree(){
-        Integer count = 0;
+        int count = 0;
         try {
             count = roomService.getRoomFree();
             return new ResponseEntity<Integer>(count, HttpStatus.OK);
-        } catch (com.netcracker.exception.ParseException e) {
+        } catch (MyParseException e) {
             e.printStackTrace();
             return new ResponseEntity<String>(e.getMessage(),HttpStatus.NOT_FOUND);
         } catch (FatalError fatalError) {
@@ -57,15 +59,15 @@ public class RestRoomControler {
 
             if ( datesql.getTime() >= datesql1.getTime()) {
                 list = roomService.getListRoom(sdate);
-            }else throw new ErrorValidation("Invalid date");
+            } else throw new MyValidationException("Invalid date");
             return new ResponseEntity<List<Room>>(list,HttpStatus.OK);
-        } catch (com.netcracker.exception.ParseException e) {
+        } catch (MyParseException e) {
             e.printStackTrace();
             return new ResponseEntity<String>(e.getMessage(),HttpStatus.NOT_FOUND);
         } catch (FatalError fatalError) {
             fatalError.printStackTrace();
             return new ResponseEntity<String>(fatalError.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
-        } catch (ErrorValidation errorValidation) {
+        } catch (MyValidationException errorValidation) {
             errorValidation.printStackTrace();
             return new ResponseEntity<String>(errorValidation.getMessage(),HttpStatus.NOT_FOUND);
         }catch (ParseException e) {
@@ -75,7 +77,7 @@ public class RestRoomControler {
     }
 
     @PostMapping("/add")
-    ResponseEntity saveRoom(@RequestBody Room room){
+    ResponseEntity saveRoom(@RequestBody RoomCast room) {
        try {
             roomService.saveRoom(room);
             return new ResponseEntity<String>("Uploaded", HttpStatus.OK);
@@ -101,8 +103,8 @@ public class RestRoomControler {
     @PostMapping("/getById")
     ResponseEntity findRoomById(int id_room,int  id_corp){
         try {
-            Room room  =  roomService.findRoomById(id_room,id_corp);
-            return new ResponseEntity<Room>(room,HttpStatus.OK);
+            RoomCast room = roomService.findRoomById(id_room, id_corp);
+            return new ResponseEntity<RoomCast>(room, HttpStatus.OK);
         } catch (FatalError fatalError) {
             fatalError.printStackTrace();
             return  new ResponseEntity<String>(fatalError.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);

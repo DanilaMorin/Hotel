@@ -1,10 +1,10 @@
 package com.netcracker.bakend;
 
-import com.netcracker.exception.EntityNotFound;
-import com.netcracker.exception.ErrorValidation;
-import com.netcracker.exception.FatalError;
-import com.netcracker.services.ReservService;
 import com.netcracker.DAO.entity.Reserv;
+import com.netcracker.exception.EntityNotFound;
+import com.netcracker.exception.FatalError;
+import com.netcracker.exception.MyValidationException;
+import com.netcracker.services.ReservService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -67,13 +67,13 @@ public class RestReservControler {
 
             if ((reserv.getArrival_date().getTime() <= reserv.getDate_of_departure().getTime()) & (reserv.getArrival_date().getTime() >= date1.getTime())){
                 reservService.saveReserv(reserv);
-            }else throw new ErrorValidation("error with dates");
+            } else throw new MyValidationException("error with dates");
 
             return new ResponseEntity<Reserv>(reserv,HttpStatus.OK);
         } catch (DataIntegrityViolationException ex) {
                      ex.printStackTrace();
             return new ResponseEntity<String>("Such an object already exists", HttpStatus.NOT_FOUND);
-        }  catch (ErrorValidation ex){
+        } catch (MyValidationException ex) {
             return new ResponseEntity<String>(ex.getMessage(),HttpStatus.NOT_FOUND);
 
         }catch (ParseException e) {

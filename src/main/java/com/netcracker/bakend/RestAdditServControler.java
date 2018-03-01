@@ -1,29 +1,18 @@
 package com.netcracker.bakend;
 
 import com.netcracker.DAO.entity.AdditionalServices;
-
 import com.netcracker.exception.EntityNotFound;
 import com.netcracker.exception.FatalError;
 import com.netcracker.services.AdditServicesServie;
-
-
-import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.Entity;
-import java.sql.SQLException;
 import java.util.List;
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-/**
- * Created by 12345 on 30.01.2018.
- */
+
 @RestController()
 @RequestMapping(value = "rest/additserv")
 
