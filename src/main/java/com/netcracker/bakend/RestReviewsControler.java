@@ -17,7 +17,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("rest/reviews")
-public class RestReviewsDAO {
+public class RestReviewsControler {
 
     @Autowired
     ReviewsService reviewsService;

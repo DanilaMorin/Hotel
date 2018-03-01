@@ -38,15 +38,18 @@ public class RoomDAOImpl extends AbstractDAO implements RoomDAO {
             format.applyPattern("yyyy-MM-dd");
             Date date = new Date();
             java.sql.Date date1 = new java.sql.Date(format.parse(format.format(date)).getTime());
-            Query query = getSession().createQuery("SELECT count (room.id_corps) from Room as room left join room.reserv  as res where (res.arrival_date > :date or :date1 > res.date_of_departure or (res.id is null))and ((room.id_corps = res.id_corp) or (res.id_corp = null))");
+            Query query = getSession().createQuery("SELECT count  (room.id_room) from Room as room left join room.reserv  as res where not (res.arrival_date < :date and :date1 < res.date_of_departure) or (res.id is null) GROUP BY res.id_client"); //and ((room.id_corps = res.id_corp) or (res.id_corp = null))");
             query.setParameter("date", date1);
             query.setParameter("date1", date1);
             List list = query.list();
+            System.out.println(list);
+
             cout = Integer.parseInt((String) list.get(0).toString());
             return cout;
         }catch (ParseException ex){
             throw new com.netcracker.exception.ParseException("not a valid date format");
         }catch (Exception ex){
+            ex.printStackTrace();
             throw new FatalError("base is not responding");
         }
 
@@ -85,10 +88,12 @@ public class RoomDAOImpl extends AbstractDAO implements RoomDAO {
     public List<Room> findAllRoom() throws FatalError {
         List<Room> list = null;
         try {
-            Query query = getSession().createQuery("SELECT new Room(res.id_room,room.id_corps,room.number_of_people,room.floor) from Room as room join room.reserv  as res");
+            //Query query = getSession().createQuery("SELECT new Room(res.id_room,room.id_corps,room.number_of_people,room.floor) from Room as room join room.reserv  as res ");
+            Query query = getSession().createQuery("SELECT new Room(room.id_room,room.id_corps,room.number_of_people,room.floor) from Room as room ");
             list = (List<Room> ) query.list();
             return list;
         } catch (Exception ex){
+            ex.printStackTrace();
             throw new FatalError("base is not responding");
         }
     }

@@ -52,6 +52,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/rest/**").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/swagger-ui.html").access("hasRole('ROLE_ADMIN')")
                 .and().formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/swagger-ui.html", true)
                 .and().csrf().disable();
     }

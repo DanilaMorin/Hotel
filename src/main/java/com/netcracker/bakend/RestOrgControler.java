@@ -57,6 +57,7 @@ public class RestOrgControler {
     @PostMapping("/getAll")
     ResponseEntity getById(String id){
         try {
+            id = Validation.parseStirng(id);
             Organization organization = service.findOrgById(id);
             return new ResponseEntity<Organization>(organization,HttpStatus.OK);
         } catch (FatalError fatalError) {

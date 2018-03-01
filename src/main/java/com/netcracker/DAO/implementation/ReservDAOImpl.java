@@ -38,6 +38,7 @@ public class ReservDAOImpl extends AbstractDAO implements ReservDAO {
             List<Reserv> list = (List<Reserv>) criteria.list();
             return list;
         }catch (Exception ex){
+            ex.printStackTrace();
             throw new FatalError("base is not responding");
         }
     }

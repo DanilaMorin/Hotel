@@ -1,5 +1,9 @@
 package com.netcracker.DAO.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.omg.CORBA.ServerRequest;
+
 import javax.persistence.*;
 
 /**
@@ -9,13 +13,13 @@ import javax.persistence.*;
 @Table(name = "rooms")
 public class Room {
     @Id()
-    @GeneratedValue
+   // @GeneratedValue
     @AttributeOverrides(value = {
             @AttributeOverride(name = "id_room", column = @Column(name = "id_room")),
             @AttributeOverride(name = "id_corps", column = @Column(name = "id_corps"))
 
     })
-
+    @Column(name = "id_room")
     private int id_room ;
     @Column(name = "id_corps")
     private int id_corps ;
@@ -24,9 +28,14 @@ public class Room {
     @Column(name = "floor")
     private int floor ;
 
+    //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id", scope=ServerRequest.class)
     @ManyToOne (optional=false, cascade=CascadeType.ALL)
-    @JoinColumn (name = "id_room", insertable = false, updatable = false)
-
+    //@OneToOne (optional=false, cascade=CascadeType.ALL)
+    //@JoinColumn (name = "id_room", insertable = false, updatable = false)
+    @JoinColumns({
+            @JoinColumn(name="id_room", referencedColumnName="id_room", insertable = false, updatable = false),
+            @JoinColumn(name="id_corps", referencedColumnName="id_corp", insertable = false, updatable = false)
+    })
     private Reserv reserv;
 
     public Room(int id_corps, int number_of_people, int floor, Reserv reserv ) {

@@ -11,6 +11,7 @@ public class Reviews {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
     @Column(name = "id_reserv")
     private int id_reserv;
@@ -21,6 +22,12 @@ public class Reviews {
 
     public Reviews(int id, int id_reserv, String text, double rating) {
         this.id = id;
+        this.id_reserv = id_reserv;
+        this.text = text;
+        this.rating = rating;
+    }
+
+    public Reviews(int id_reserv, String text, double rating) {
         this.id_reserv = id_reserv;
         this.text = text;
         this.rating = rating;

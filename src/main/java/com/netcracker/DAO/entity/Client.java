@@ -14,6 +14,7 @@ import javax.persistence.*;
 public class Client {
 
     @Id
+    @Column(name = "login")
     private String login;
     @Column(name = "password", nullable = false )
     private String password;

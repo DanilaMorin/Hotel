@@ -1,6 +1,9 @@
 package com.netcracker.DAO.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.netcracker.bakend.Validation;
+import org.omg.CORBA.ServerRequest;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -31,24 +34,39 @@ public class Reserv  {
     @Column (name = "id_client")
     private String id_client;
 
-
-    @OneToMany (mappedBy="reserv", fetch=FetchType.EAGER)
-    private Collection<Room> tenants;
+//    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id", scope=ServerRequest.class)
+//    @OneToMany (mappedBy="reserv", fetch=FetchType.EAGER)
+//   // @OneToOne (mappedBy="reserv", fetch=FetchType.EAGER)
+//
+//    //@JoinColumn(name = "id_room",insertable = false, updatable = false)
+//    private Collection<Room> rooms;
+    //private Room rooms;
 
 
 
     public Reserv() {
     }
 
-    public Reserv(Date arrival_date, Date date_of_departure, int id_room, int id_corp, String id_org, String id_client, Collection<Room> tenants) {
-        this.arrival_date = arrival_date;
-        this.date_of_departure = date_of_departure;
-        this.id_room = id_room;
-        this.id_corp = id_corp;
-        this.id_org = id_org;
-        this.id_client = id_client;
-        this.tenants = tenants;
-    }
+//    public Reserv(Date arrival_date, Date date_of_departure, int id_room, int id_corp, String id_org, String id_client, Collection<Room> rooms) {
+//        this.arrival_date = arrival_date;
+//        this.date_of_departure = date_of_departure;
+//        this.id_room = id_room;
+//        this.id_corp = id_corp;
+//        this.id_org = id_org;
+//        this.id_client = id_client;
+//        //this.tenants = tenants;
+//        this.rooms = rooms;
+//    }
+//    public Reserv(Date arrival_date, Date date_of_departure, int id_room, int id_corp, String id_org, String id_client, Room tenants) {
+//        this.arrival_date = arrival_date;
+//        this.date_of_departure = date_of_departure;
+//        this.id_room = id_room;
+//        this.id_corp = id_corp;
+//        this.id_org = id_org;
+//        this.id_client = id_client;
+//        //this.tenants = tenants;
+//        this.rooms = tenants;
+//    }
 
     public Reserv(Date arrival_date, Date date_of_departure, int id_room, int id_corp, String id_org, String id_client) {
         this.arrival_date = arrival_date;
@@ -57,7 +75,8 @@ public class Reserv  {
         this.id_corp = id_corp;
         this.id_org = id_org;
         this.id_client = id_client;
-        this.tenants = null;
+        //this.tenants = null;
+        //this.rooms = null;
     }
 
     public int getId() {
@@ -134,11 +153,17 @@ public class Reserv  {
     }
 
 
-    public Collection<Room> getTenants() {
-        return tenants;
-    }
+//    public Collection<Room> getTenants() {
+////        return rooms;
+//    }
+//    public Room getTenants() {
+//        return rooms;
+//    }
 
-    public void setTenants(Collection<Room> tenants) {
-        this.tenants = tenants;
-    }
+//    public void setTenants(Collection<Room> tenants) {
+//        this.rooms = tenants;
+//    }
+//    public void setTenants(Room tenants) {
+//        this.rooms = tenants;
+//    }
 }
