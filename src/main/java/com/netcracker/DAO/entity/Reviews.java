@@ -13,7 +13,7 @@ public class Reviews {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
-    @Column(name = "id_reverv")
+    @Column(name = "id_reserv")
     private int id_reserv;
     @Column(name = "text")
     private String text;

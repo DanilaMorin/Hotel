@@ -4,6 +4,7 @@ import com.netcracker.DAO.entity.*;
 import com.netcracker.exception.EntityNotFound;
 import com.netcracker.exception.FatalError;
 import com.netcracker.services.ClientService;
+import com.netcracker.services.ReservService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,8 @@ public class RestClientControler {
     @Autowired
     ClientService clientService;
 
+    @Autowired
+    ReservService reservService;
     @GetMapping(value = "/reviews")
     ResponseEntity getMap() {
         try {
@@ -54,9 +57,10 @@ public class RestClientControler {
 
 
     @PostMapping("/dataByID")
-    ResponseEntity getData(String login) {
+    ResponseEntity getData(int id_reserv) {
         try {
-            login = Validation.parseStirng(login);
+            Reserv reserv = reservService.findReservById(id_reserv);
+            String login = reserv.getId_client();
             Map<String, Object> result = new HashMap<>();
             Double price = clientService.billForServices(login);
             List<Reviews> list = clientService.getRevByid(login);
