@@ -17,5 +17,5 @@ public interface ServiceDAO {
 
     Service findServiceById(int id) throws EntityNotFound, FatalError;
 
-    Integer deleteServiceById(int id) throws FatalError;
+    boolean deleteServiceById(int id) throws FatalError;
 }

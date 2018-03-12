@@ -16,5 +16,5 @@ public interface ValueServiceService {
 
     ValueService findValueServiceById(int id_corp, int id_service) throws FatalError, EntityNotFound;
 
-    Integer deleteValueServiceById(int id_corp, int id_service) throws FatalError;
+    boolean deleteValueServiceById(int id_corp, int id_service) throws FatalError;
 }

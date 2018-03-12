@@ -3,7 +3,6 @@ package com.netcracker.DAO.datamodel;
 import com.netcracker.DAO.entity.AdditionalServices;
 import com.netcracker.exception.EntityNotFound;
 import com.netcracker.exception.FatalError;
-import org.postgresql.util.PSQLException;
 
 import java.util.List;
 
@@ -17,6 +16,6 @@ public interface AdditServicesDAO {
 
     AdditionalServices findAdditServicesById(int id) throws EntityNotFound;
 
-    int deleteAdditServicesById(int id_reserv, int id_service) throws FatalError;
+    boolean deleteAdditServicesById(int id_reserv, int id_service) throws FatalError;
 
 }

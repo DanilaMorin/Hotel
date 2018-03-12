@@ -6,10 +6,8 @@ import com.netcracker.DAO.entity.Corps;
 import com.netcracker.exception.EntityNotFound;
 import com.netcracker.exception.FatalError;
 import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
-import org.postgresql.util.PSQLException;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -60,12 +58,13 @@ public class CorpsDAOImpl extends AbstractDAO implements CorpsDAO
     }
 
     @Override
-    public int deleteCorpsById(int id) throws FatalError {
+    public boolean deleteCorpsById(int id) throws FatalError {
         try {
         Query query =  getSession().createQuery("delete Corps where id = :id ");
         query.setParameter("id", id);
         int result = query.executeUpdate();
-        return result;
+        if (result > 0 ) return true;
+        else return false;
         }
         catch (Exception ex){
             ex.printStackTrace();

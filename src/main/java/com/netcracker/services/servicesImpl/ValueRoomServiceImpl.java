@@ -37,7 +37,7 @@ public class ValueRoomServiceImpl implements ValueRoomService{
     }
 
     @Override
-    public Integer deleteServiceById(int stars, int number) throws FatalError {
+    public boolean deleteServiceById(int stars, int number) throws FatalError {
             return valueRoomDAO.deleteValueRoomById(stars,number);
     }
 }

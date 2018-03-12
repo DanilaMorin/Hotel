@@ -16,5 +16,5 @@ public interface ValueServiceDAO {
 
     ValueService findValueServiceById(int id_corp, int id_service) throws EntityNotFound, FatalError;
 
-    Integer deleteValueServiceById(int id_corp, int id_service) throws FatalError;
+    boolean deleteValueServiceById(int id_corp, int id_service) throws FatalError;
 }

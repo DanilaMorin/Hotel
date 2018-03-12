@@ -17,5 +17,5 @@ public interface OrganizationService {
 
     Organization findOrgById(String id) throws FatalError, EntityNotFound;
 
-    int deleteOrgById(String id) throws FatalError;
+    boolean deleteOrgById(String id) throws FatalError;
 }

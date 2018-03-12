@@ -18,6 +18,6 @@ public interface ReviewsService {
 
     Reviews findReviewsById(int id) throws FatalError, EntityNotFound;
 
-    int deleteReviewsById(int id) throws FatalError;
+    boolean deleteReviewsById(int id) throws FatalError;
 
 }

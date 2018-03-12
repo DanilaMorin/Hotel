@@ -42,16 +42,19 @@ public class RoomDAOImpl extends AbstractDAO implements RoomDAO {
                     "  GROUP BY res.id_room, res.id_corp) as lol LEFT JOIN\n" +
                     "\n" +
                     "  (SELECT res.id_room,id_corp, count(*) as count from rooms as room left join reserv  as res on room.id_room = res.id_room AND room.id_corps = res.id_corp\n" +
-                    "  where not (res.arrival_date < :date and :date1 < res.date_of_departure) or (res.id is null)GROUP BY res.id_room, res.id_corp)as lol1 ON lol.id_room=lol1.id_room AND lol.id_corp=lol1.id_corp\n" +
+                    "  where not (res.arrival_date <= :date and :date1 <= res.date_of_departure) or (res.id is null)GROUP BY res.id_room, res.id_corp)as lol1 ON lol.id_room=lol1.id_room AND lol.id_corp=lol1.id_corp\n" +
                     "WHERE lol.count != lol1.count or lol1.count is NULL ;\n");
             query.setParameter("date", today_date);
             query.setParameter("date1", today_date);
             List<BigInteger> list = query.list();
 
             cout = Integer.parseInt(list.get(0).toString());
-            Query query1 = getSession().createQuery("SELECT count (*) from Room");
+            //System.out.println(list);
+            Query query1 = getSession().createQuery("SELECT count (*) from RoomCast");
             List list1 = query1.list();
+            //System.out.println(list1);
             Integer num = Integer.parseInt((String) list1.get(0).toString());
+
             if (num - cout >= 0) return num - cout;
             else return 0;
         }catch (ParseException ex){
@@ -67,7 +70,7 @@ public class RoomDAOImpl extends AbstractDAO implements RoomDAO {
         public List<Room> getListRoom(String date) throws MyParseException, FatalError {
             List<Room> list = null;
             try {
-                Query query = getSession().createQuery("SELECT new com.netcracker.DAO.entity.Room(res.id_room,res.id_corp,room.number_of_people, room.floor) from com.netcracker.DAO.entity.Room as room join room.reserv  as res where  NOT (res.arrival_date < :date and :date1 < res.date_of_departure )  and (res.arrival_date < :date2 and :date3 < res.date_of_departure )"); //and (room.id_corps = res.id_corp)"); //and  not(res.id is null)
+                Query query = getSession().createQuery("SELECT new com.netcracker.DAO.entity.Room(res.id_room,res.id_corp,room.number_of_people, room.floor) from com.netcracker.DAO.entity.Room as room join room.reserv  as res where  NOT (res.arrival_date <= :date and :date1 <= res.date_of_departure )  and (res.arrival_date <= :date2 and :date3 <= res.date_of_departure )");
                 SimpleDateFormat format = new SimpleDateFormat();
                 format.applyPattern("yyyy-MM-dd");
                 java.sql.Date desired_date = new java.sql.Date(format.parse(date).getTime());
@@ -93,11 +96,11 @@ public class RoomDAOImpl extends AbstractDAO implements RoomDAO {
     }
 
     @Override
-    public List<Room> findAllRoom() throws FatalError {
-        List<Room> list = null;
+    public List<RoomCast> findAllRoom() throws FatalError {
+        List<RoomCast> list = null;
         try {
-            Query query = getSession().createQuery("SELECT new Room(room.id_room,room.id_corps,room.number_of_people,room.floor) from Room as room ");
-            list = (List<Room> ) query.list();
+            Query query = getSession().createQuery("SELECT new RoomCast(room.id_room,room.id_corps,room.number_of_people,room.floor) from Room as room ");
+            list = (List<RoomCast> ) query.list();
             return list;
         } catch (Exception ex){
             ex.printStackTrace();
@@ -123,14 +126,15 @@ public class RoomDAOImpl extends AbstractDAO implements RoomDAO {
     }
 
     @Override
-    public int deleteRoomById(int id_room, int id_corp) throws FatalError {
+    public boolean deleteRoomById(int id_room, int id_corp) throws FatalError {
         try {
             Query query = getSession().createQuery("DELETE  Room as room\n" +
                     " WHERE room.id_room = :id_room and room.id_corps = :id_corps ");
             query.setInteger("id_room", id_room);
             query.setInteger("id_corps", id_corp);
             int n = query.executeUpdate();
-            return n;
+            if(n > 0 ) return true;
+            else return false;
         }catch (Exception ex){
             throw new FatalError("base is not responding");
         }

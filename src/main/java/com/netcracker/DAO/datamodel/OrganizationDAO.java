@@ -16,5 +16,5 @@ public interface OrganizationDAO {
 
     Organization findOrgById(String id) throws EntityNotFound, FatalError;
 
-    int deleteOrgById(String id) throws FatalError;
+    boolean deleteOrgById(String id) throws FatalError;
 }

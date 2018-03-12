@@ -44,7 +44,7 @@ public class RoomServicesImpl implements RoomService {
     }
 
     @Override
-    public List<Room> findAllRoom() throws FatalError {
+    public List<RoomCast> findAllRoom() throws FatalError {
         return roomDAO.findAllRoom();
     }
 
@@ -54,7 +54,7 @@ public class RoomServicesImpl implements RoomService {
     }
 
     @Override
-    public int deleteRoomById(int id_room, int id_corp) throws FatalError {
+    public boolean deleteRoomById(int id_room, int id_corp) throws FatalError {
         return roomDAO.deleteRoomById(id_room,id_corp);
     }
 

@@ -16,6 +16,6 @@ public interface ValueRoomDAO {
 
     ValueRoom findValueRoomById(int stars, int number) throws FatalError;
 
-    Integer deleteValueRoomById(int stars, int number) throws FatalError;
+    boolean deleteValueRoomById(int stars, int number) throws FatalError;
 
 }

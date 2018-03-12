@@ -73,10 +73,9 @@ public class RestOrgControler {
     ResponseEntity deleteById(String id){
         try {
             boolean b = false;
-            int n = 0;
-            n = service.deleteOrgById(id);
-            if(n > 0) b = true;
-            return new ResponseEntity<Boolean>(true,HttpStatus.OK);
+            b = service.deleteOrgById(id);
+            if (!b) return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<Boolean>(true, HttpStatus.OK);
         } catch (FatalError fatalError) {
             fatalError.printStackTrace();
             return new ResponseEntity<String>(fatalError.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);

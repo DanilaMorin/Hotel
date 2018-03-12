@@ -124,12 +124,12 @@ public class ClientsDAOImpl extends AbstractDAO implements ClientsDAO {
     }
 
     @Override
-    public List<Room> getRoomByClient(String login) throws FatalError {
+    public List<RoomCast> getRoomByClient(String login) throws FatalError {
         try {
-            List<Room> list;
-            Query query = getSession().createQuery("SELECT new Room(res.id_room,room.id_corps,room.number_of_people,room.floor) from Room as room join room.reserv  as res where  res.id_client = :login and res.id_corp = room.id_corps");
+            List<RoomCast> list;
+            Query query = getSession().createQuery("SELECT new RoomCast(res.id_room,room.id_corps,room.number_of_people,room.floor) from Room as room join room.reserv  as res where  res.id_client = :login and res.id_corp = room.id_corps");
             query.setParameter("login", login);
-            list = (List<Room>) query.list();
+            list = (List<RoomCast>) query.list();
             return list;
         }catch (Exception ex){
             ex.printStackTrace();
@@ -147,15 +147,37 @@ public class ClientsDAOImpl extends AbstractDAO implements ClientsDAO {
             list = query.list();
             System.out.println(list.get(0));
             cout = Integer.parseInt((String) list.get(0).toString());
+            if(cout == 0) throw new EntityNotFound("no data");
             return cout;
         }catch (NumberFormatException ex){
             ex.printStackTrace();
-            throw new EntityNotFound("No login");
+            throw new EntityNotFound("no data");
 
-        }catch (Exception ex){
+        }catch (EntityNotFound ex){
+            ex.printStackTrace();
+            throw new EntityNotFound(ex.getMessage());
+        }
+        catch (Exception ex){
             ex.printStackTrace();
             throw new FatalError("base is not responding");
         }
 
     }
+
+    @Override
+    public boolean deleteClientById(String login) throws FatalError {
+        try {
+            Query query =  getSession().createQuery("delete Client where login = :login ");
+            query.setParameter("login", login);
+            int result = query.executeUpdate();
+            if (result > 0 ) return true;
+            else return false;
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+            throw new FatalError("base is not responding");
+        }
+    }
+
 }
+

@@ -16,6 +16,6 @@ public interface ReservDAO {
 
     Reserv findReservById(int id) throws EntityNotFound, FatalError;
 
-    int deleteReservById(int id) throws FatalError;
+    boolean deleteReservById(int id) throws FatalError;
 
 }

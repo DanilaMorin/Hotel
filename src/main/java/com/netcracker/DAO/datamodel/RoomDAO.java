@@ -18,10 +18,10 @@ public interface RoomDAO {
     List<Room> getListRoom(String date) throws MyParseException, FatalError;
 
     void saveRoom(RoomCast room);
-    List<Room> findAllRoom() throws FatalError;
+    List<RoomCast> findAllRoom() throws FatalError;
 
     RoomCast findRoomById(int id_room, int id_corp) throws EntityNotFound, FatalError;
-    int deleteRoomById(int id_room,int  id_corp) throws FatalError;
+    boolean deleteRoomById(int id_room,int  id_corp) throws FatalError;
 
     List<Client> certainTime(String data, String data1) throws MyParseException, FatalError;
 

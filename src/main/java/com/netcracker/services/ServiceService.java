@@ -16,5 +16,5 @@ public interface ServiceService {
 
     Service findServiceById(int id) throws FatalError, EntityNotFound;
 
-    Integer deleteServiceById(int id) throws FatalError;
+    boolean deleteServiceById(int id) throws FatalError;
 }

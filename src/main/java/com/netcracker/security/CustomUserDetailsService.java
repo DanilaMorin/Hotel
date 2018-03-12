@@ -16,9 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-//import com.websystique.springmvc.model.User;
-//import com.websystique.springmvc.model.UserProfile;
-//import com.websystique.springmvc.service.UserService;
+
 
 
 @Service("customUserDetailsService")

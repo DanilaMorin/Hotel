@@ -36,7 +36,7 @@ public class ReviewsServiceImpl implements ReviewsService {
     }
 
     @Override
-    public int deleteReviewsById(int id) throws FatalError {
+    public boolean deleteReviewsById(int id) throws FatalError {
         return reviewsDAO.deleteReviewsById(id);
 
     }

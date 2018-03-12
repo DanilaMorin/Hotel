@@ -1,6 +1,9 @@
 package com.netcracker.DAO.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.netcracker.bakend.Validation;
+import org.omg.CORBA.ServerRequest;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -42,6 +45,7 @@ public class Reserv  {
         this.id_org = id_org;
         this.id_client = id_client;
     }
+
 
     public int getId() {
         return id;
@@ -100,8 +104,8 @@ public class Reserv  {
     }
 
     public void parseString(){
-        this.id_org = Validation.parseStirng(id_org);
-        this.id_client = Validation.parseStirng(id_client);
+        if (this.id_org != null) this.id_org = Validation.parseStirng(id_org);
+        if (this.id_client != null )this.id_client = Validation.parseStirng(id_client);
     }
     @Override
     public String toString() {

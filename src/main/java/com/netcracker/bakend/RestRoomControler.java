@@ -93,8 +93,8 @@ public class RestRoomControler {
     @GetMapping("/getAll")
     ResponseEntity findAllRoom(){
         try {
-            List<Room> list = roomService.findAllRoom();
-            return new ResponseEntity<List<Room>>(list,HttpStatus.OK);
+            List<RoomCast> list = roomService.findAllRoom();
+            return new ResponseEntity<List<RoomCast>>(list,HttpStatus.OK);
         } catch (FatalError fatalError) {
             fatalError.printStackTrace();
             return new ResponseEntity<String>(fatalError.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
@@ -115,12 +115,10 @@ public class RestRoomControler {
     };
     @DeleteMapping("/delById")
     ResponseEntity deleteRoomById(int id_room,int  id_corp){
-        int n = 0;
         try {
-            n = roomService.deleteRoomById(id_room,id_corp);
-            Boolean b = false;
-            if (n > 0) b = true;
-            return new ResponseEntity<Boolean>(b,HttpStatus.OK);
+            boolean b = roomService.deleteRoomById(id_room,id_corp);
+            if (!b) return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<Boolean>(true, HttpStatus.OK);
         } catch (FatalError fatalError) {
             fatalError.printStackTrace();
             return  new ResponseEntity<String>(fatalError.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);

@@ -51,14 +51,15 @@ public class ValueRoomDAOImpl extends AbstractDAO implements ValueRoomDAO{
     }
 
     @Override
-    public Integer deleteValueRoomById(int stars, int number) throws FatalError {
+    public boolean deleteValueRoomById(int stars, int number) throws FatalError {
         try {
             Query query = getSession().createQuery("DELETE  ValueRoom as valroom\n" +
                     " WHERE valroom.stars = :stars and valroom.number_of_people = :number_of_people ");
             query.setInteger("stars", stars);
             query.setInteger("number_of_people", number);
             int n = query.executeUpdate();
-            return n;
+            if (n > 0 ) return true;
+            else return false;
         }catch (Exception ex){
             throw new FatalError("base is not responding");
         }

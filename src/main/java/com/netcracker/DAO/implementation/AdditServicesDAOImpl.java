@@ -6,14 +6,10 @@ import com.netcracker.DAO.entity.AdditionalServices;
 import com.netcracker.exception.EntityNotFound;
 import com.netcracker.exception.FatalError;
 import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
 import org.hibernate.Query;
-import org.hibernate.SharedSessionContract;
 import org.hibernate.criterion.Restrictions;
-import org.postgresql.util.PSQLException;
 import org.springframework.stereotype.Repository;
 
-import java.io.Closeable;
 import java.util.List;
 
 /**
@@ -69,13 +65,15 @@ public class AdditServicesDAOImpl extends AbstractDAO implements AdditServicesDA
     }
 
     @Override
-    public int   deleteAdditServicesById(int id_reserv, int id_service) throws FatalError {
+    public boolean deleteAdditServicesById(int id_reserv, int id_service) throws FatalError {
         try {
+            int result = 0;
             Query query = getSession().createQuery("delete AdditionalServices where id_reserv = :id_reserv and id_service = :id_service");
             query.setParameter("id_reserv", id_reserv);
             query.setParameter("id_service", id_service);
-            int result = query.executeUpdate();
-            return result;
+             result = query.executeUpdate();
+            if(result > 0) return true;
+            else return false;
         }catch (Exception ex) {
             ex.printStackTrace();
             throw  new FatalError("base is not responding");

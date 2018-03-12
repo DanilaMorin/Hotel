@@ -62,13 +62,14 @@ public class ReservDAOImpl extends AbstractDAO implements ReservDAO {
     }
 
     @Override
-    public int  deleteReservById(int id) throws FatalError {
+    public boolean deleteReservById(int id) throws FatalError {
         try {
         Query query = getSession().createQuery("DELETE  Reserv as res\n" +
                 " WHERE res.id = :id ");
         query.setInteger("id", id);
         int n = query.executeUpdate();
-        return n;
+        if (n > 0 ) return true;
+        else return false;
     }
         catch (Exception ex){
         ex.printStackTrace();

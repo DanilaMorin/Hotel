@@ -59,10 +59,12 @@ public class RestAdditServControler {
         Boolean b = null;
         try {
             b = additServicesServie.deleteAdditServicesById(id_reserv,id_service);
+            if (!b) return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<Boolean>(true, HttpStatus.OK);
         } catch (FatalError fatalError) {
             return new ResponseEntity<String>(fatalError.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
         }
-         return new ResponseEntity<Boolean>(b,HttpStatus.OK);
+
 
 
     }

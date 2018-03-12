@@ -17,5 +17,5 @@ public interface ReviewsDAO {
 
     Reviews findReviewsById(int id) throws EntityNotFound, FatalError;
 
-    int deleteReviewsById(int id) throws FatalError;
+    boolean deleteReviewsById(int id) throws FatalError;
 }

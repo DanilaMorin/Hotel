@@ -72,7 +72,7 @@ public class RestReservControler {
             return new ResponseEntity<Reserv>(reserv,HttpStatus.OK);
         } catch (DataIntegrityViolationException ex) {
                      ex.printStackTrace();
-            return new ResponseEntity<String>("Such an object already exists", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<String>("Could not add object", HttpStatus.NOT_FOUND);
         } catch (MyValidationException ex) {
             return new ResponseEntity<String>(ex.getMessage(),HttpStatus.NOT_FOUND);
 
@@ -88,8 +88,9 @@ public class RestReservControler {
     @DeleteMapping("/del")
     ResponseEntity deleteById(int id){
         try {
-            reservService.deleteReservById(id);
-            return new ResponseEntity<Boolean>(true,HttpStatus.OK);
+            boolean b = reservService.deleteReservById(id);
+            if (!b) return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<Boolean>(true, HttpStatus.OK);
         } catch (FatalError fatalError) {
             fatalError.printStackTrace();
             return new ResponseEntity<String>(fatalError.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);

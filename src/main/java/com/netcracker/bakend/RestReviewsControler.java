@@ -62,12 +62,10 @@ public class RestReviewsControler {
     };
     @DeleteMapping("/delById")
     ResponseEntity deleteReviewsById(int id){
-        int n = 0;
         try {
-            n = reviewsService.deleteReviewsById(id);
-            Boolean b = false;
-            if (n > 0) b = true;
-            return new ResponseEntity<Boolean>(b,HttpStatus.OK);
+            boolean b  = reviewsService.deleteReviewsById(id);
+            if (!b) return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<Boolean>(true, HttpStatus.OK);
         } catch (FatalError fatalError) {
             fatalError.printStackTrace();
             return new ResponseEntity<String>(fatalError.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);

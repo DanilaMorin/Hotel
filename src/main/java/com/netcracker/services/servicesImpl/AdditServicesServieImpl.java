@@ -56,9 +56,8 @@ public Boolean saveAdditServices(AdditionalServices services) {
 
     @Override
     public boolean deleteAdditServicesById(int id_reserv, int id_service) throws FatalError {
-        int rez = additServicesDAO.deleteAdditServicesById(id_reserv, id_service);
-        boolean b = false;
-        if (rez > 0) b = true;
-        return b;
+        boolean rez = additServicesDAO.deleteAdditServicesById(id_reserv, id_service);
+
+        return rez;
     }
 }

@@ -54,14 +54,15 @@ public class ValueServiceDAOImpl extends AbstractDAO implements ValueServiceDAO 
         }
     }
     @Override
-    public Integer deleteValueServiceById(int id_corp, int id_service) throws FatalError {
+    public boolean deleteValueServiceById(int id_corp, int id_service) throws FatalError {
         try {
             Query query = getSession().createQuery("DELETE  ValueService as valueserv\n" +
                     " WHERE valueserv.id_corp = :id_corp and valueserv.id_service = :id_service ");
             query.setInteger("id_corp", id_corp);
             query.setInteger("id_service", id_service);
             int n = query.executeUpdate();
-            return n;
+            if (n > 0) return true;
+            else return false;
         }catch (Exception ex){
             throw new FatalError("base is not responding");
         }

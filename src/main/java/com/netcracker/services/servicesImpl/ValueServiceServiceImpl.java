@@ -38,7 +38,7 @@ public class ValueServiceServiceImpl implements ValueServiceService {
     }
 
     @Override
-    public Integer deleteValueServiceById(int id_corp, int id_service) throws FatalError {
+    public boolean deleteValueServiceById(int id_corp, int id_service) throws FatalError {
       return  valueServiceDAO.deleteValueServiceById(id_corp,id_service);
     }
 }

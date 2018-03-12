@@ -51,9 +51,8 @@ public class CorpsServiceImpl implements CorpsService {
 
     @Override
     public boolean deleteCorpsById(int id) throws FatalError {
-        int n = corpsDAO.deleteCorpsById(id);
-        if(n>0) return  true;
-        return false;
+        boolean n = corpsDAO.deleteCorpsById(id);
+        return n;
 
 
     }

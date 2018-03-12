@@ -17,5 +17,5 @@ public interface CorpsDAO {
 
     Corps findCorpsById(int id) throws EntityNotFound, FatalError;
 
-    int deleteCorpsById(int id) throws FatalError;
+    boolean deleteCorpsById(int id) throws FatalError;
 }

@@ -42,7 +42,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     @Override
-    public int deleteOrgById(String id) throws FatalError {
+    public boolean deleteOrgById(String id) throws FatalError {
         return dao.deleteOrgById(id);
 
     }

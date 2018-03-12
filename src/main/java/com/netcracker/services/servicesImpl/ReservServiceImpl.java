@@ -34,7 +34,7 @@ public class ReservServiceImpl implements ReservService {
         return reservDAO.findReservById(id);
     }
 
-    public int  deleteReservById(int id) throws FatalError {
+    public boolean deleteReservById(int id) throws FatalError {
         return reservDAO.deleteReservById(id);
     }
 

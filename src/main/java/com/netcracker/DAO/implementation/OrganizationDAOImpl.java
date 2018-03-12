@@ -61,12 +61,13 @@ public class OrganizationDAOImpl extends AbstractDAO implements OrganizationDAO 
         }
 
     @Override
-    public int deleteOrgById(String id) throws FatalError {
+    public boolean deleteOrgById(String id) throws FatalError {
      try {
         Query query =  getSession().createQuery("delete Organization where login = :id ");
         query.setParameter("id", id);
         int result = query.executeUpdate();
-        return result;
+        if(result > 0 ) return  true;
+        else return false;
     }
         catch (Exception ex){
         ex.printStackTrace();

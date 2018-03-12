@@ -19,4 +19,5 @@ public interface ClientService {
     List<Reviews> getRevByid(String login) throws FatalError;
     List<ServicePrice> typesOfServices(String login) throws FatalError;
     DataClient getDataClient(String login) throws FatalError, EntityNotFound;
+    boolean deleteClientById(String login) throws FatalError;
 }

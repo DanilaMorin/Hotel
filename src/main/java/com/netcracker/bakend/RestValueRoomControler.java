@@ -64,12 +64,10 @@ public class RestValueRoomControler {
 
     @DeleteMapping("/del")
     ResponseEntity deleteById(int stars, int number){
-        int n = 0;
         try {
-            n = service.deleteServiceById(stars, number);
-            Boolean b = false;
-            if (n > 0) b = true;
-            return new ResponseEntity<Boolean>(b,HttpStatus.OK);
+            boolean b  = service.deleteServiceById(stars, number);
+            if (!b) return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<Boolean>(true, HttpStatus.OK);
         } catch (FatalError fatalError) {
             fatalError.printStackTrace();
             return  new ResponseEntity<String>(fatalError.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);

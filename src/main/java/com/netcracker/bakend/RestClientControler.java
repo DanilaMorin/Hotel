@@ -114,4 +114,20 @@ public class RestClientControler {
             return new ResponseEntity<String>(entityNotFound.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
+
+    @DeleteMapping(value = "/del",produces ="application/json")
+
+    ResponseEntity deleteById(String login){
+        login = Validation.parseStirng(login);
+        try {
+            boolean b = clientService.deleteClientById(login);
+            if (!b) return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+        } catch (FatalError fatalError) {
+            return new ResponseEntity<String>(fatalError.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        
+    }
+
+
 }

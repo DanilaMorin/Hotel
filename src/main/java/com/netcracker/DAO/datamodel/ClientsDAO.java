@@ -20,6 +20,7 @@ public interface ClientsDAO {
     Double billForServices(String login)  throws  EntityNotFound, FatalError;
     List<Reviews> getRevByid(String login) throws FatalError;
     List<ServicePrice> typesOfServices(String login) throws FatalError;
-    List<Room> getRoomByClient(String login) throws FatalError;
+    List<RoomCast> getRoomByClient(String login) throws FatalError;
     int getNumByClient(String login) throws FatalError, EntityNotFound;
+    boolean deleteClientById(String login) throws FatalError;
 }

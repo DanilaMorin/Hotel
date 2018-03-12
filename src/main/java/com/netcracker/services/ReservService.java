@@ -13,7 +13,7 @@ public interface ReservService {
     void saveReserv(Reserv reserv);
     List<Reserv> findAllReserv() throws FatalError;
     Reserv findReservById(int id) throws FatalError, EntityNotFound;
-    int deleteReservById(int id) throws FatalError;
+    boolean deleteReservById(int id) throws FatalError;
 
 }
 

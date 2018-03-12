@@ -54,13 +54,14 @@ public class ServiceDAOImpl extends AbstractDAO implements ServiceDAO{
     }
 
     @Override
-    public Integer deleteServiceById(int id) throws FatalError {
+    public boolean deleteServiceById(int id) throws FatalError {
             try {
                 Query query = getSession().createQuery("DELETE  Service as service\n" +
                         " WHERE service.id = :id");
                 query.setInteger("id", id);
                 int n = query.executeUpdate();
-                return n;
+                if (n > 0 ) return true;
+                else return false;
             }catch (Exception ex){
                 throw new FatalError("base is not responding");
             }

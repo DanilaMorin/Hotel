@@ -60,14 +60,15 @@ public class ReviewsDAOImpl extends AbstractDAO implements ReviewsDAO  {
     }
 
     @Override
-    public int deleteReviewsById(int id) throws FatalError {
+    public boolean deleteReviewsById(int id) throws FatalError {
         try {
 
             Query query = getSession().createQuery("DELETE  Reviews as res\n" +
                     " WHERE res.id = :id ");
             query.setInteger("id", id);
             int n = query.executeUpdate();
-            return n;
+            if(n > 0) return true;
+            else return false;
         }catch (Exception ex){
             ex.printStackTrace();
             throw new FatalError("base is not responding");

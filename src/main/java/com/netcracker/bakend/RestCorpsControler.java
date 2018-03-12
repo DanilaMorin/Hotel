@@ -53,7 +53,7 @@ public class RestCorpsControler {
         boolean b = false;
         try {
             b = corpsService.deleteCorpsById(id);
-            if (!b) return new ResponseEntity<Boolean>(false, HttpStatus.EXPECTATION_FAILED);
+            if (!b) return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
             return new ResponseEntity<Boolean>(true, HttpStatus.OK);
         } catch (FatalError fatalError) {
             fatalError.printStackTrace();

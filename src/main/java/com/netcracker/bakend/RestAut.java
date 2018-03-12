@@ -30,13 +30,7 @@ public class RestAut {
         return model;
     }
 
-    @RequestMapping(value = {"/rest"})
-    public ModelAndView getSwagger() {
-        ModelAndView model = new ModelAndView();
-        model.setViewName("swagger");
 
-        return model;
-    }
 
     @RequestMapping(value = "/login")
     public Model getLogin(@RequestParam(value = "error", required = false) String error,

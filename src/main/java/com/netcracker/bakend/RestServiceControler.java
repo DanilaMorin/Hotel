@@ -69,12 +69,10 @@ public class RestServiceControler {
 
     @DeleteMapping("/del")
     ResponseEntity deleteById(int id){
-        int n = 0;
         try {
-            n = serviceService.deleteServiceById(id);
-            Boolean b = false;
-            if (n > 0) b = true;
-            return new ResponseEntity<Boolean>(b,HttpStatus.OK);
+            boolean b  = serviceService.deleteServiceById(id);
+            if (!b) return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<Boolean>(true, HttpStatus.OK);
         } catch (FatalError fatalError) {
             fatalError.printStackTrace();
             return  new ResponseEntity<String>(fatalError.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);

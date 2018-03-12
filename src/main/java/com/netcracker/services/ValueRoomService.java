@@ -15,5 +15,5 @@ public interface ValueRoomService {
 
     ValueRoom findValueRoomById(int stars, int number) throws FatalError;
 
-    Integer deleteServiceById(int stars, int number) throws FatalError;
+    boolean deleteServiceById(int stars, int number) throws FatalError;
 }

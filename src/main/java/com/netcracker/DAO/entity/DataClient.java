@@ -8,21 +8,21 @@ import java.util.List;
 
 public class DataClient {
 
-    private List<Room> room;
+    private List<RoomCast> room;
     private Integer num;
     private List<ServicePrice> servicePrices;
 
-    public DataClient(List<Room> room, Integer num, List<ServicePrice> servicePrices) {
+    public DataClient(List<RoomCast> room, Integer num, List<ServicePrice> servicePrices) {
         this.room = room;
         this.num = num;
         this.servicePrices = servicePrices;
     }
 
-    public List<Room> getRoom() {
+    public List<RoomCast> getRoom() {
         return room;
     }
 
-    public void setRoom(List<Room> room) {
+    public void setRoom(List<RoomCast> room) {
         this.room = room;
     }
 

@@ -69,11 +69,18 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public DataClient getDataClient(String login) throws FatalError, EntityNotFound {
         DataClient dataClient;
-        List<Room> rooms = clientsDAO.getRoomByClient(login);
+        List<RoomCast> rooms = clientsDAO.getRoomByClient(login);
         Integer n = clientsDAO.getNumByClient(login);
         List<ServicePrice> servicePrices = clientsDAO.typesOfServices(login);
         dataClient = new DataClient(rooms, n, servicePrices);
         return dataClient;
+
+    }
+
+    @Override
+    public boolean deleteClientById(String login) throws FatalError {
+        boolean n = clientsDAO.deleteClientById(login);
+        return n;
 
     }
 }

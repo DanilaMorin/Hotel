@@ -38,7 +38,7 @@ public class ServiceServiceServiceImpl implements ServiceService {
     }
 
     @Override
-    public Integer deleteServiceById(int id) throws FatalError {
+    public boolean deleteServiceById(int id) throws FatalError {
             return serviceDAO.deleteServiceById(id);
     }
 }
